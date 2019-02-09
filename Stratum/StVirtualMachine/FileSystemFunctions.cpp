@@ -173,9 +173,9 @@ void vm_filedelete()
 void vm_getfilelist()
 {
     int attribute = valueStack->popDouble();
-    QString path = valueStack->popString();
+    QString sourcePath = valueStack->popString();
 
-    path = PathManager::instance().cleanPath(path);
+    QString path = PathManager::instance().cleanPath(sourcePath);
 
     QFileInfo fi(path);
     QDir dir = fi.isDir() ? QDir(path) : fi.dir();
@@ -223,6 +223,8 @@ void vm_getfilelist()
                                ((attribute & Hidden) && !fileInfo.isHidden()) ||
                                ((attribute & Readonly) && !fileInfo.isReadable());
 
+            if(fileInfo.isDir() && (attribute & Directory) && sourcePath.endsWith(fileInfo.fileName() + "\\"))
+                notFiltered = true;
 
             if(notFiltered)
                 continue;
