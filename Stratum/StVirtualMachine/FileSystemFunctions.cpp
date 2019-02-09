@@ -202,12 +202,26 @@ void vm_getfilelist()
         if(!fileAttributeClass)
             std::runtime_error(tr("Ошибка в функции GetFileList. Не найден системный класс 'FILE_ATTRIBUTE'").toStdString());
 
-        for(QFileInfo fileInfo : dir.entryInfoList(QStringList() << fileNamesFilter,
-                                                   QDir::AllEntries | QDir::Hidden | QDir::System))
+        QFileInfoList entryList = dir.entryInfoList(QStringList() << fileNamesFilter,
+                                                    QDir::AllEntries | QDir::Dirs | QDir::Hidden | QDir::System);
+
+        QFileInfoList dirList = dir.entryInfoList(QDir::Dirs);
+
+        if(fileNamesFilter.contains("*.*"))
+        {
+            for(QFileInfo dirInfo : dirList)
+            {
+                if(!entryList.contains(dirInfo))
+                    entryList.append(dirInfo);
+            }
+        }
+
+        for(QFileInfo fileInfo : entryList)
         {
             bool notFiltered = ((attribute & Directory) && !fileInfo.isDir()) ||
                                ((attribute & Hidden) && !fileInfo.isHidden()) ||
                                ((attribute & Readonly) && !fileInfo.isReadable());
+
 
             if(notFiltered)
                 continue;
