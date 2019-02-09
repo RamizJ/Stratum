@@ -1,0 +1,3 @@
+Name:    Student
+e-mail:  Student@Stratum.ac.ru
+code:    211563293638
