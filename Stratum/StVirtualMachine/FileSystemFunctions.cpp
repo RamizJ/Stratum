@@ -205,16 +205,17 @@ void vm_getfilelist()
         QFileInfoList entryList = dir.entryInfoList(QStringList() << fileNamesFilter,
                                                     QDir::AllEntries | QDir::Dirs | QDir::Hidden | QDir::System);
 
-        QFileInfoList dirList = dir.entryInfoList(QDir::Dirs);
-
         if(fileNamesFilter.contains("*.*"))
         {
+            QFileInfoList dirList = dir.entryInfoList(QDir::Dirs);
+
             for(QFileInfo dirInfo : dirList)
             {
                 if(!entryList.contains(dirInfo))
                     entryList.append(dirInfo);
             }
         }
+
 
         for(QFileInfo fileInfo : entryList)
         {
