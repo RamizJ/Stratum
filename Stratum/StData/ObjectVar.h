@@ -98,6 +98,10 @@ public:
     void toStartupState();
     QString toString();
 
+    bool isNumeric() const;
+    bool isDouble() const;
+    bool isString() const;
+
 
 private:
     void setData(VarData& varData, const QString& data);

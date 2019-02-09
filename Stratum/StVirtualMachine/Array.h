@@ -37,6 +37,9 @@ public:
     void save(StData::St2000DataStream& stream);
     void load(StData::St2000DataStream& stream);
 
+    bool sort(const QVector<QString>& fieldNames, bool desc);
+    bool sort(const QVector<std::tuple<QString, bool>>& fieldNames);
+
 private:
     //    StData::Project* m_project;
     QList<ArrayItem*> m_items;

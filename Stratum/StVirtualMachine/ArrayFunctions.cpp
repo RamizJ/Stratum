@@ -21,6 +21,9 @@ void setupArrayFunctions()
     operations[VM_VGETs] = dm_vgets;
     operations[VM_VSTORE] = dm_save;
     operations[VM_VLOAD] = dm_load;
+    operations[VM_VSORT_ASC] = dm_sort;
+    operations[VM_VSORT] = dm_sort_desc;
+    operations[VM_VSORT_DIFFERENT] = dm_sort_different;
 }
 
 void dm_new()
@@ -152,7 +155,49 @@ void dm_load()
 
 void dm_sort()
 {
-    throw std::runtime_error("array sort function not implemented");
+    qint16 objectsCount = codePointer->getCode();
+    codePointer->incPosition();
+
+    QVector<QString> fieldNames(objectsCount);
+    for(int i = 0; i < objectsCount; i++)
+        fieldNames[i] = valueStack->popString();
+
+    int arrayHandle = valueStack->popInt32();
+    valueStack->pushDouble(arrayManager->sort(arrayHandle, false, fieldNames));
+
+    //throw std::runtime_error("array sort function not implemented");
+}
+
+void dm_sort_desc()
+{
+    qint16 objectsCount = codePointer->getCode();
+    codePointer->incPosition();
+
+    QVector<QString> fieldNames(objectsCount);
+    for(int i = 0; i < objectsCount; i++)
+        fieldNames[i] = valueStack->popString();
+
+    bool desc = valueStack->popDouble() > 0;
+    int arrayHandle = valueStack->popInt32();
+    valueStack->pushDouble(arrayManager->sort(arrayHandle, desc, fieldNames));
+}
+
+void dm_sort_different()
+{
+    qint16 objectsCount = codePointer->getCode() / 2;
+    codePointer->incPosition();
+
+    QVector<std::tuple<QString, bool>> fieldNames(objectsCount);
+    for(int i = 0; i < objectsCount; i++)
+    {
+        bool desc = valueStack->popDouble() > 0;
+        QString fieldName = valueStack->popString();
+
+        fieldNames[i] = std::make_tuple(fieldName, desc);
+    }
+
+    int arrayHandle = valueStack->popInt32();
+    valueStack->pushDouble(arrayManager->sort(arrayHandle, fieldNames));
 }
 
 }

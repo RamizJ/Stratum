@@ -1,2 +1,3 @@
-Stratum.pro.user
+*.pro.user
 build*
+deploy

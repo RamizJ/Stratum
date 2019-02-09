@@ -6844,8 +6844,10 @@ void vm_vsort()
     double desc = POP_DOUBLE;
     dyno_t h = POP_LONG;
 
-    bool *asc = new bool[max(count,1)];
-    for(int i=0;i<max(count,1);i++) asc[i]=desc<=0;
+    bool* asc = new bool[max(count,1)];
+    for(int i=0;i<max(count,1);i++)
+        asc[i]=desc<=0;
+
     PUSH_DOUBLE(dyno_mem->Sort(h,vars,count,asc,-1));
     delete asc;
 }

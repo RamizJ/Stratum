@@ -227,6 +227,24 @@ int ArrayManager::load(StreamItem* streamItem)
     return insertArray(array);
 }
 
+bool ArrayManager::sort(int handle, bool desc, const QVector<QString> &fieldNames)
+{
+    Array* array = getArray(handle);
+    if(array)
+        return array->sort(fieldNames, desc);
+
+    return false;
+}
+
+bool ArrayManager::sort(int handle, const QVector<std::tuple<QString, bool> >& fieldNames)
+{
+    Array* array = getArray(handle);
+    if(array)
+        return array->sort(fieldNames);
+
+    return false;
+}
+
 void ArrayManager::reset()
 {
     m_arrays.deleteAll();
