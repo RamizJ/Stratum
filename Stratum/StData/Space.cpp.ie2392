@@ -1,0 +1,909 @@
+#include "Space.h"
+
+#include "Log.h"
+
+#include "Sc2000DataStream.h"
+#include "Tool2d.h"
+#include "SpaceItem.h"
+#include "SpaceChunk.h"
+#include "SpaceCollectionResult.h"
+#include "SpaceItemResult.h"
+#include "GraphicsHelper.h"
+#include "Class.h"
+#include "Library.h"
+#include "Scheme.h"
+#include "SpaceToolResult.h"
+
+#include <QBitArray>
+#include <map>
+#include <QDebug>
+#include <QFontMetrics>
+#include <QFileInfo>
+
+#include <QDebug>
+
+using namespace std;
+
+namespace StData {
+
+Space::Space(Scheme* scheme) :
+    m_scheme(scheme),
+    m_layerBits(32, true),
+    m_scale(1.0)
+{
+    if(scheme)
+        m_dir = scheme->cls()->library()->libraryDir();
+}
+
+Space::Space(const QString& fileName) :
+    m_fileName(fileName),
+    m_scheme(nullptr),
+    m_layerBits(32, true),
+    m_scale(1.0)
+{
+    m_dir = QFileInfo(m_fileName).absoluteDir();
+}
+
+Space::~Space()
+{
+    m_pens.deleteAll();
+    m_brushes.deleteAll();
+    m_textures.deleteAll();
+    m_maskedTextures.deleteAll();
+    m_fonts.deleteAll();
+    m_strings.deleteAll();
+    m_texts.deleteAll();
+    m_rasterTexts.deleteAll();
+
+    m_items.deleteAll();
+
+    qDeleteAll(m_dataObjects);
+}
+
+Class* Space::ownerClass() const
+{
+    return m_scheme ? m_scheme->cls() : nullptr;
+}
+
+QList<SpaceItem*> Space::spaceItemsByName(const QString& name)
+{
+    return m_itemForName.values(name);
+}
+
+void Space::setLayers(const quint32& layers)
+{
+    m_layers = layers;
+    for(int i = 0; i < 32; i++)
+        m_layerBits[i] = ((m_layers >> i) & 1) == 0;
+}
+
+bool Space::isLayerVisible(int layerIndex)
+{
+    if(layerIndex >= 0 && layerIndex < m_layerBits.count())
+        return m_layerBits[layerIndex];
+
+    return false;
+}
+
+int Space::getZOrderIndex(SpaceItem* item) const
+{
+    return m_zOrderList.indexOf(item);
+}
+
+int Space::getZOrderIndexByHandle(int handle)
+{
+    SpaceItem* item = m_items.getItem(handle);
+    return m_zOrderList.indexOf(item);
+}
+
+void Space::removeItemFromNameDictionary(SpaceItem* item)
+{
+    if(!item->name().isEmpty())
+    {
+        QMutableHashIterator<QString, SpaceItem*> it(m_itemForName);
+        while(it.hasNext())
+        {
+            it.next();
+            if(it.key() == item->name() && it.value() == item)
+                it.remove();
+        }
+    }
+}
+
+void Space::deleteObject(int handle)
+{
+    SpaceItem* item = m_items.take(handle);
+    if(!item)
+        return;
+    
+    if(GroupItem* parentGroup = item->ownerItem())
+        parentGroup->remove(item);
+
+    if(GroupItem* groupItem = dynamic_cast<GroupItem*>(item))
+        for(SpaceItem* childItem : groupItem->items())
+            deleteObject(childItem->handle());
+    else
+        m_zOrderList.removeOne(item);
+
+    removeItemFromNameDictionary(item);
+
+    delete item;
+}
+
+int Space::getObjectType(int handle)
+{
+    SpaceItem* item = m_items.getItem(handle);
+    return item->loadingType();
+}
+
+bool Space::objectToTop(int objectHandle)
+{
+    SpaceItem* item = m_items.getItem(objectHandle);
+    int index = m_zOrderList.indexOf(item);
+
+    if(index >= 0 && index < m_zOrderList.count()-1)
+    {
+        m_zOrderList.removeAt(index);
+        m_zOrderList.append(item);
+        return true;
+    }
+    return false;
+}
+
+bool Space::objectToBottom(int objectHandle)
+{
+    SpaceItem* item = m_items.getItem(objectHandle);
+    if(int index = m_zOrderList.indexOf(item) > 0)
+    {
+        m_zOrderList.removeAt(index);
+        m_zOrderList.prepend(item);
+        return true;
+    }
+    return false;
+}
+
+bool Space::setObjectZOrder(int objectHandle, int zOrder)
+{
+    SpaceItem* item = m_items.getItem(objectHandle);
+    int index = m_zOrderList.indexOf(item);
+
+    if(index != -1 && (zOrder >= 0 && zOrder < m_zOrderList.count()))
+    {
+        m_zOrderList.removeAt(index);
+        m_zOrderList.insert(zOrder, item);
+        return true;
+    }
+    return false;
+}
+
+bool Space::swapObjectsZOrder(int objectHandle1, int objectHandle2)
+{
+    SpaceItem* item1 = m_items.getItem(objectHandle1);
+    SpaceItem* item2 = m_items.getItem(objectHandle2);
+
+    int index1 = m_zOrderList.indexOf(item1);
+    int index2 = m_zOrderList.indexOf(item2);
+    if(index1 != -1 && index2 != -1)
+    {
+        m_zOrderList.swap(item1, item2);
+        return true;
+    }
+    return false;
+}
+
+int Space::createPen(qint16 rop, int rgba, int width, int style)
+{
+    //    for(PenInfo* penInfo : m_pens.items())
+    //    {
+    //        QPen existingPen = penInfo->pen();
+    //        if(existingPen == pen)
+    //            return penInfo->handle();
+    //    }
+
+    Pen* newPenInfo = m_pens.createItem();
+    newPenInfo->setRgba(rgba);
+    newPenInfo->setWidth(width);
+    newPenInfo->setStyle(style);
+    newPenInfo->setRop(rop);
+    return newPenInfo->handle();
+}
+
+int Space::createBrush(int style, int hatch, int rgba, int dibHandle, qint16 rop)
+{
+    //    QBrush brush;
+    //    brush.setColor(QColor(rgba));
+    //    brush.setStyle(BrushInfo::toQBrushStyle(style, hatchPattern));
+    //    if(PixmapInfo* pixmapInfo = m_pixmaps.getItem(dibHandle))
+    //        brush.setTexture(pixmapInfo->pixmap());
+
+    Brush* newBrush = m_brushes.createItem();
+    newBrush->setStyle(style);
+    newBrush->setHatch(hatch);
+    newBrush->setRgba(rgba);
+    newBrush->setTexture(m_textures.getItem(dibHandle));
+    newBrush->setRop(rop);
+    return newBrush->handle();
+}
+
+int Space::createFont(const QFont& font, bool sizeInPixels)
+{
+    Font* fontInfo = m_fonts.createItem();
+    fontInfo->setFont(font);
+    fontInfo->setSizeInPixels(sizeInPixels);
+    return fontInfo->handle();
+}
+
+int Space::createString(const QString& data)
+{
+    String* stringInfo = m_strings.createItem();
+    stringInfo->setString(data);
+    return stringInfo->handle();
+}
+
+int Space::createText(int fontHandle, int stringHandle, const QColor& bgColor, const QColor& fgColor)
+{
+    Font* fontInfo = getFont(fontHandle);
+    String* stringInfo = getString(stringHandle);
+
+    if(fontInfo && stringInfo)
+    {
+        Text* text = m_texts.createItem();
+        Font* font = m_fonts.getItem(fontHandle);
+        String* string = m_strings.getItem(stringHandle);
+        text->setData(font, string, bgColor, fgColor);
+        return text->handle();
+    }
+    return 0;
+}
+
+int Space::createDib(const QString& absoluteFileName)
+{
+    Texture* pixmapInfo = m_textures.createItem();
+    pixmapInfo->setPixmap(QPixmap(absoluteFileName));
+    return pixmapInfo->handle();
+}
+
+int Space::createRDib(QString fileName)
+{
+    TextureReference* pixmapInfo = new TextureReference();
+    pixmapInfo->setPixmapPath(fileName);
+    if(QFileInfo(fileName).isRelative())
+        fileName = m_dir.absoluteFilePath(fileName);
+
+    pixmapInfo->setPixmap(QPixmap(fileName));
+    return m_textures.insert(pixmapInfo);
+}
+
+int Space::createDoubleDib(const QString& absoluteFileName)
+{
+    QPixmap pixmap = GraphicsHelper::loadMaskedPixmap(absoluteFileName);
+    if(!pixmap.isNull())
+    {
+        Texture* pixmapInfo = m_maskedTextures.createItem();
+        pixmapInfo->setPixmap(pixmap);
+        return pixmapInfo->handle();
+    }
+    return 0;
+}
+
+int Space::createDoubleRDib(QString fileName)
+{
+    if(QFileInfo(fileName).isRelative())
+        fileName = m_dir.absoluteFilePath(fileName);
+
+    QPixmap pixmap = GraphicsHelper::loadMaskedPixmap(fileName);
+    if(!pixmap.isNull())
+    {
+        TextureReference* pixmapRefInfo = new TextureReference();
+        pixmapRefInfo->setPixmap(pixmap);
+        pixmapRefInfo->setPixmapPath(fileName);
+        return m_maskedTextures.insert(pixmapRefInfo);
+    }
+    return 0;
+}
+
+bool Space::insertText(int rasterTextHandle, int index, int fontHandle, int stringHandle,
+                       const QColor& bgColor, const QColor& fgColor)
+{
+    Font* font = getFont(fontHandle);
+    String* string = getString(stringHandle);
+    RasterText* rasterText = getRasterText(rasterTextHandle);
+
+    if(index == -1)
+        index = rasterText->textItems().count();
+
+    if(font && string && index >= 0 && index <= rasterText->textItems().count())
+    {
+        Text* textInfo = m_texts.createItem();
+        textInfo->setData(font, string, bgColor, fgColor);
+        rasterText->insertAt(index, textInfo);
+        return true;
+    }
+    return false;
+}
+
+bool Space::removeText(int rasterTextHandle, int index)
+{
+    RasterText* rasterText = getRasterText(rasterTextHandle);
+
+    if(index >= 0 && index < rasterText->textItems().count())
+    {
+        rasterText->removeAt(index);
+        return true;
+    }
+    return false;
+}
+
+PolylineItem2d* Space::createPolyline(int penHandle, int brushHandle, const QPolygonF& polyline)
+{
+    if(polyline.isEmpty() || (penHandle == 0 && brushHandle == 0))
+        return nullptr;
+
+    Pen* pen = m_pens.getItem(penHandle);
+    Brush* brush = m_brushes.getItem(brushHandle);
+
+    if((penHandle && !pen) || (brushHandle && !brush))
+        return nullptr;
+
+    PolylineItem2d* polylineItem = new PolylineItem2d(this);
+    polylineItem->setPolyline(polyline);
+
+    polylineItem->setPen(pen);
+    polylineItem->setBrush(brush);
+
+    m_items.insert(polylineItem);
+    m_zOrderList.append(polylineItem);
+
+    return polylineItem;
+}
+
+TextItem2d* Space::createRasterText(int textHandle, double x, double y, double angle)
+{
+    if(Text* text = getText(textHandle))
+    {
+        RasterText* rasterText = m_rasterTexts.createItem();
+        rasterText->append(text);
+
+        TextItem2d* textItem2d = new TextItem2d(this);
+        textItem2d->setTextAngle(angle);
+        textItem2d->setOrigin(QPointF(x, y));
+        textItem2d->setRasterText(rasterText);
+
+        if(text->font() && text->string())
+        {
+            QFontMetrics fontMetrics(text->font()->font());
+            double w = fontMetrics.width(text->string()->string());
+            double h = fontMetrics.height();
+            textItem2d->setSize(QSizeF(w, h));
+        }
+        m_items.insert(textItem2d);
+        m_zOrderList.append(textItem2d);
+
+        return textItem2d;
+    }
+    return nullptr;
+}
+
+TextureItem2d* Space::createPixmap(int dibHandle, double x, double y)
+{
+    if(Texture* texture = getTexture(dibHandle))
+    {
+        TextureItem2d* pixmapItem2d = new TextureItem2d(this);
+        pixmapItem2d->setTexture(texture);
+        pixmapItem2d->setOrigin(x, y);
+
+        pixmapItem2d->setSize(texture->pixmap().size());
+        pixmapItem2d->setTextureSize(texture->pixmap().size());
+
+        m_items.insert(pixmapItem2d);
+        m_zOrderList.append(pixmapItem2d);
+
+        return pixmapItem2d;
+    }
+    return nullptr;
+}
+
+MaskedTextureItem2d* Space::createMaskedPixmap(int doublDibHandle, double x, double y)
+{
+    if(Texture* texture = getMaskedTexture(doublDibHandle))
+    {
+        MaskedTextureItem2d* pixmapItem2d = new MaskedTextureItem2d(this);
+        pixmapItem2d->setTexture(texture);
+        pixmapItem2d->setOrigin(QPointF(x, y));
+        pixmapItem2d->setSize(texture->pixmap().size());
+        pixmapItem2d->setTextureSize(texture->pixmap().size());
+
+        m_items.insert(pixmapItem2d);
+        m_zOrderList.append(pixmapItem2d);
+
+        return pixmapItem2d;
+    }
+    return nullptr;
+}
+
+int Space::getDibPixelColor(int dibHandle, int x, int y)
+{
+    if(Texture* pixmapInfo = getTexture(dibHandle))
+    {
+        QImage image = pixmapInfo->pixmap().toImage();
+        return image.pixel(x, y);
+    }
+    return 0;
+}
+
+bool Space::setDibPixelColor(int dibHandle, int x, int y, int rgba)
+{
+    if(Texture* pixmapInfo = getTexture(dibHandle))
+    {
+        QImage image = pixmapInfo->pixmap().toImage();
+        image.setPixel(x, y, rgba);
+        pixmapInfo->setPixmap(QPixmap::fromImage(image));
+        return true;
+    }
+    return false;
+}
+
+GroupItem* Space::createGroup(const QVector<int>& objectHandles)
+{
+    //    for(int objectHandle : objectHandles)
+    //        if(!m_spaceItems.getItem(objectHandle))
+    //            return nullptr;
+
+    GroupItem* groupItem = new GroupItem(this);
+    groupItem->addItemHandles(objectHandles.toList());
+    m_items.insert(groupItem);
+
+    return groupItem;
+}
+
+bool Space::deleteGroup(int handle)
+{
+    if(GroupItem* groupItem = dynamic_cast<GroupItem*>(getSpaceItem(handle)))
+    {
+        //        for(int childHandle : groupItem->itemHandles())
+        //            getSpaceItem(childHandle)->setOwnerItem(nullptr);
+
+        //        groupItem->clear();
+
+        //        if(GroupItem* parentGroup = groupItem->ownerItem())
+        //            parentGroup->removeItemHandle(handle);
+
+        removeItemFromNameDictionary(groupItem);
+        delete groupItem;
+
+        return true;
+    }
+    return false;
+}
+
+bool Space::addGroupItem(int groupHandle, int itemHandle)
+{
+    GroupItem* groupItem = dynamic_cast<GroupItem*>(getSpaceItem(groupHandle));
+    SpaceItem* spaceItem = getSpaceItem(itemHandle);
+
+    if(groupItem && spaceItem && spaceItem != groupItem && spaceItem->ownerItem() == nullptr)
+    {
+        groupItem->addItemHandle(spaceItem->handle());
+        return true;
+    }
+    return false;
+}
+
+bool Space::deleteGroupItem(int groupHandle, int itemHandle)
+{
+    GroupItem* groupItem = dynamic_cast<GroupItem*>(getSpaceItem(groupHandle));
+    SpaceItem* spaceItem = getSpaceItem(itemHandle);
+
+    if(groupItem && spaceItem && spaceItem != groupItem && spaceItem->ownerItem() == groupItem)
+    {
+        groupItem->removeItemHandle(itemHandle);
+        spaceItem->setOwnerItem(nullptr);
+        return true;
+    }
+    return false;
+}
+
+int Space::getGroupItem(int groupHandle, int index)
+{
+    GroupItem* groupItem = dynamic_cast<GroupItem*>(getSpaceItem(groupHandle));
+    if(groupItem && index >= 0 && index < groupItem->itemsCount())
+        return groupItem->itemAt(index)->handle();
+
+    return 0;
+}
+
+int Space::getGroupItemsCount(int groupHandle)
+{
+    if(GroupItem* groupItem = dynamic_cast<GroupItem*>(getSpaceItem(groupHandle)))
+        return groupItem->itemsCount();
+
+    return 0;
+}
+
+int Space::getNextItemHandle(int fromHandle)
+{
+    return m_items.getNextHandle(fromHandle);
+}
+
+GroupItem* Space::spaceToGroup()
+{
+    GroupItem* groupItem = new GroupItem(this);
+    for(SpaceItem* item : m_items.items())
+        if(!item->ownerItem())
+            groupItem->add(item);
+
+    if(groupItem->itemsCount() == 0)
+    {
+        delete groupItem;
+        groupItem = nullptr;
+    }
+    return groupItem;
+}
+
+QList<SpaceItem*> Space::copyItems(Space* sourceSpace, const QList<SpaceItem*>& spaceItems)
+{
+    QList<SpaceItem*> copies;
+    for(SpaceItem* spaceItem : spaceItems)
+        copies << spaceItem->copy();
+
+    auto createLinearList = [](const QList<SpaceItem*> copies) -> QList<SpaceItem*>
+    {
+        return copies;
+    };
+
+    QList<SpaceItem*> copyList = createLinearList(copies);
+
+//    QList<SpaceItem*> result;
+//    for(SpaceItem* spaceItem : spaceItems)
+//    {
+//        SpaceItem* copy = spaceItem->copy();
+
+//        addItemCopy(copy);
+//        result << copy;
+//    }
+//    return result;
+}
+
+void Space::addItemCopy(SpaceItem* spaceItem)
+{
+    if(GroupItem* group = dynamic_cast<GroupItem*>(spaceItem))
+        for(SpaceItem* childItem : group->items())
+            addItemCopy(childItem);
+
+    m_items.insert(spaceItem);
+
+    if(ShapeItem2d* shapeItem = dynamic_cast<ShapeItem2d*>(spaceItem))
+    {
+        m_pens.insert(shapeItem->pen());
+        m_brushes.insert(shapeItem->brush());
+    }
+
+    else if(MaskedTextureItem2d* maskedPixmapItem = dynamic_cast<MaskedTextureItem2d*>(spaceItem))
+        m_maskedTextures.insert(maskedPixmapItem->texture());
+
+    else if(TextureItem2d* pixmapItem = dynamic_cast<TextureItem2d*>(spaceItem))
+        m_textures.insert(pixmapItem->texture());
+
+    else if(TextItem2d* textItem = dynamic_cast<TextItem2d*>(spaceItem))
+    {
+        m_rasterTexts.insert(textItem->rasterText());
+        for(Text* text : textItem->rasterText()->textItems())
+        {
+            m_texts.insert(text);
+            m_fonts.insert(text->font());
+            m_strings.insert(text->string());
+        }
+    }
+}
+
+ControlItem2d* Space::createControl(const QString& className, const QString& text,
+                                    int style, int x, int y, int width, int height)
+{
+    ControlItem2d* controlItem = ControlItem2d::create(this, className, style, text);
+    if(controlItem)
+    {
+        controlItem->setOrigin(x, y);
+        controlItem->setSize(width, height);
+
+        m_items.insert(controlItem);
+        m_zOrderList.append(controlItem);
+    }
+    return controlItem;
+}
+
+bool Space::load(St2000DataStream& stream)
+{
+    qint16 code = stream.readInt16();
+    if(code != 17458)
+        return false;
+
+    stream.readFileVersion();
+    int version = stream.readInt16();
+
+    if(version > 0x0300)
+        return false;
+
+    if(stream.fileVersion() < 0x0300)
+        throw std::logic_error("Cannot load space. Old file format");
+
+    SpaceChunk spaceChunk(this, &stream);
+    spaceChunk.read();
+
+    m_org = stream.readPointF();
+    m_scaleDiv = stream.readPointF();
+    m_scaleMul = stream.readPointF();
+    m_state = stream.readInt16();
+
+    /*BkBrush=(PBrush2d)(void*)MAKELONG(ps->ReadWord(),0);*/
+    stream.readInt16();
+
+    setLayers(stream.readUint32());
+    m_defaultFlags = stream.readInt16();
+
+    QList<PenResult*> penResults;
+    QList<BrushResult*> brushResults;
+    QList<TextureResult*> textureResults;
+    QList<MaskedTextureResult*> maskedTextureResults;
+    QList<FontResult*> fontResults;
+    QList<StringResult*> stringResults;
+    QList<RasterTextResult*> rasterTextResults;
+    QList<SpaceItemResult*> spaceItemResults;
+
+    while(spaceChunk.pos() > stream.pos() && stream.isOkStatus())
+    {
+        SpaceChunk itemChunk(this, &stream);
+        itemChunk.read();
+        if(SpaceChunkResult* result = itemChunk.load())
+        {
+            switch(itemChunk.code())
+            {
+                case SpaceChunk::PenCollection:
+                {
+                    auto collectionResult = static_cast<PenCollectionResult*>(result);
+                    penResults = collectionResult->items();
+                }break;
+
+                case SpaceChunk::BrushCollection:
+                {
+                    auto collectionResult = static_cast<BrushCollectionResult*>(result);
+                    brushResults = collectionResult->items();
+                }break;
+
+                case SpaceChunk::DibCollection:
+                {
+                    auto collectionResult = static_cast<TextureCollectionResult*>(result);
+                    textureResults = collectionResult->items();
+                }break;
+
+                case SpaceChunk::DoubleDibCollection:
+                {
+                    auto collectionResult = static_cast<MaskedTextureCollectionResult*>(result);
+                    maskedTextureResults = collectionResult->items();
+                }break;
+
+                case SpaceChunk::FontCollection:
+                {
+                    auto collectionResult = static_cast<FontCollectionResult*>(result);
+                    fontResults = collectionResult->items();
+                }break;
+
+                case SpaceChunk::StringCollection:
+                {
+                    auto collectionResult = static_cast<StringCollectionResult*>(result);
+                    stringResults = collectionResult->items();
+                }break;
+
+                case SpaceChunk::RasterTextCollection:
+                {
+                    auto collectionResult = static_cast<RasterTextCollectionResult*>(result);
+                    rasterTextResults = collectionResult->items();
+                }break;
+
+                case SpaceChunk::PrimaryCollection:
+                {
+                    auto collectionResult = static_cast<PrimaryCollectionResult*>(result);
+                    m_zOrderList = collectionResult->items();
+                }break;
+
+                case SpaceChunk::SpaceItemsCollection:
+                {
+                    auto collectionResult = static_cast<SpaceItemCollectionResult*>(result);
+                    spaceItemResults = collectionResult->items();
+                }break;
+
+                case SpaceChunk::DataItemCollection:
+                {
+                    auto collectionResult = static_cast<DataObjectCollectionResult*>(result);
+                    setDataObjects(collectionResult->dataObjects());
+                }break;
+            }
+            delete result;
+        }
+    }
+
+    for(PenResult* res : penResults)
+    {
+        Pen* pen = new Pen(res->handle());
+        pen->setData(res->rgba(), res->width(), res->style(), res->rop());
+        m_pens.insert(pen, true);
+    }
+    qDeleteAll(penResults);
+
+    for(TextureResult* res : textureResults)
+    {
+        Texture* texture = new Texture(res->handle());
+        texture->setPixmap(res->pixmap());
+        m_textures.insert(texture, true);
+    }
+    qDeleteAll(textureResults);
+
+    for(MaskedTextureResult* res : maskedTextureResults)
+    {
+        Texture* texture = new Texture(res->handle());
+        texture->setPixmap(res->pixmap());
+        m_maskedTextures.insert(texture, true);
+    }
+    qDeleteAll(maskedTextureResults);
+
+    for(BrushResult* res : brushResults)
+    {
+        Brush* brush = new Brush(res->handle());
+        Texture* texture = m_textures.getItem(res->textureHandle());
+        brush->setData(res->rgba(), res->style(), res->hatch(), res->rop(), texture);
+        m_brushes.insert(brush, true);
+    }
+    qDeleteAll(brushResults);
+
+    for(FontResult* res : fontResults)
+    {
+        Font* font = new Font(res->handle());
+        font->setFont(res->font());
+        font->setSizeInPixels(res->isSizeInPixels());
+        m_fonts.insert(font, true);
+    }
+    qDeleteAll(fontResults);
+
+    for(StringResult* res : stringResults)
+    {
+        String* string = new String(res->handle());
+        string->setString(res->string());
+        m_strings.insert(string, true);
+    }
+    qDeleteAll(stringResults);
+
+    for(RasterTextResult* res : rasterTextResults)
+    {
+        RasterText* rasterText = new RasterText(res->handle());
+        for(TextResult* textRes : res->textResults())
+        {
+            Text* text = new Text();
+            text->setBgColor(textRes->bgColor());
+            text->setFgColor(textRes->fgColor());
+            text->setFont(m_fonts.getItem(textRes->fontHandle()));
+            text->setString(m_strings.getItem(textRes->stringHandle()));
+
+            rasterText->append(text);
+            m_texts.insert(text);
+        }
+        qDeleteAll(res->textResults());
+
+        m_rasterTexts.insert(rasterText);
+    }
+    qDeleteAll(rasterTextResults);
+
+    QMap<GroupItemResult*, GroupItem*> groupForResult;
+    for(SpaceItemResult* res : spaceItemResults)
+    {
+        SpaceItem* spaceItem = nullptr;
+        if(PolylineResult* polylineResult = dynamic_cast<PolylineResult*>(res))
+        {
+            PolylineItem2d* polylineItem = new PolylineItem2d(this);
+            polylineItem->setPolyline(polylineResult->polyline());
+            spaceItem = polylineItem;
+        }
+        else if(TextureItem2dResult* textureResult = dynamic_cast<TextureItem2dResult*>(res))
+        {
+            TextureItem2d* textureItem = new TextureItem2d(this);
+
+            Texture* texture = dynamic_cast<MaskedTextureItem2dResult*>(res) ?
+                                   m_maskedTextures.getItem(textureResult->textureHandle()) :
+                                   m_textures.getItem(textureResult->textureHandle());
+
+            textureItem->setTexture(texture);
+            textureItem->setTextureOrigin(textureResult->imageOrigin());
+            textureItem->setTextureSize(textureResult->imageSize());
+            spaceItem = textureItem;
+        }
+        else if(ControlItem2dResult* controlResult = dynamic_cast<ControlItem2dResult*>(res))
+        {
+            ControlItem2d* controlItem = ControlItem2d::create(this, controlResult->className(),
+                                                               controlResult->dwStyle(),
+                                                               controlResult->text());
+            spaceItem = controlItem;
+        }
+        else if(TextItem2dResult* textResult = dynamic_cast<TextItem2dResult*>(res))
+        {
+            TextItem2d* textItem = new TextItem2d(this);
+            RasterText* rasterText = m_rasterTexts.getItem(textResult->rasterTextHandle());
+            textItem->setRasterText(rasterText);
+            textItem->setTextAngle(textResult->textAngle());
+            spaceItem = textItem;
+        }
+        else if(GroupItemResult* groupResult = dynamic_cast<GroupItemResult*>(res))
+        {
+            GroupItem* groupItem = new GroupItem(this);
+            spaceItem = groupItem;
+            groupForResult.insert(groupResult, groupItem);
+        }
+
+        if(ShapeItem2d* shapeItem = dynamic_cast<ShapeItem2d*>(spaceItem))
+        {
+            ShapeItem2dResult* shapeResult = static_cast<ShapeItem2dResult*>(res);
+            shapeItem->setPen(m_pens.getItem(shapeResult->penHandle()));
+            shapeItem->setBrush(m_brushes.getItem(shapeResult->brushHandle()));
+        }
+        if(SpaceItem2d* spaceItem2d = dynamic_cast<SpaceItem2d*>(spaceItem))
+        {
+            SpaceItem2dResult* spaceItem2dResult = static_cast<SpaceItem2dResult*>(res);
+            spaceItem2d->setOrigin(spaceItem2dResult->origin());
+            spaceItem2d->setSize(spaceItem2dResult->size());
+        }
+        if(spaceItem)
+        {
+            spaceItem->setHandle(res->handle());
+            spaceItem->setLoadingType(res->loadingType());
+            spaceItem->setName(res->name());
+            spaceItem->setOptions(res->options());
+
+            m_items.insert(spaceItem, true);
+            if(!spaceItem->name().isEmpty())
+                m_itemForName.insertMulti(spaceItem->name(), spaceItem);
+        }
+    }
+
+    for(auto it = groupForResult.begin(); it != groupForResult.end(); ++it)
+    {
+        GroupItemResult* result = it.key();
+        GroupItem* group = it.value();
+
+        for(int itemHandle : result->itemsHandles())
+            group->add(m_items.getItem(itemHandle));
+    }
+    qDeleteAll(spaceItemResults);
+
+    return true;
+}
+
+Space* Space::fromScheme(Scheme* scheme)
+{
+    if(!scheme)
+        return nullptr;
+
+    St2000DataStream stream(scheme->spaceData());
+    Space* space = new Space(scheme);
+    if(!space->load(stream))
+    {
+        delete space;
+        space = nullptr;
+    }
+    return space;
+}
+
+Space* Space::fromFile(const QString& fileName)
+{
+    QFile file(fileName);
+    if(file.open(QIODevice::ReadOnly))
+    {
+        St2000DataStream stream(&file);
+        Space* space = new Space(fileName);
+        if(!space->load(stream))
+        {
+            delete space;
+            space = nullptr;
+        }
+        return space;
+    }
+    return nullptr;
+}
+
+}

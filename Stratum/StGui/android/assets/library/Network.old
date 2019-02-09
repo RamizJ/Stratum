@@ -1,0 +1,6 @@
+DLL "sc_net32.dll" 32
+
+name "RegisterNetObject" arg "STRING","STRING","FLOAT":"WORD32" ret "FLOAT":"WORD32"
+name "UnRegisterNetObject" arg "STRING" ret "FLOAT":"WORD32"
+name "SetServer" arg "STRING" ret "FLOAT":"WORD32"
+name "SetClientName" arg "STRING" ret "FLOAT":"WORD32"

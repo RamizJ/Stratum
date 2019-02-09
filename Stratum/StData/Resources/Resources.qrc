@@ -1,0 +1,18 @@
+<RCC>
+    <qresource prefix="/DBM">
+        <file>DBM/ANIMALS.DBM</file>
+        <file>DBM/ART.DBM</file>
+        <file>DBM/BE_ICONS.DBM</file>
+        <file>DBM/DEFAULT.DBM</file>
+        <file>DBM/DIAMONDS.DBM</file>
+        <file>DBM/FOLDERS.DBM</file>
+        <file>DBM/FOLDERS2.DBM</file>
+        <file>DBM/HARDWARE.DBM</file>
+        <file>DBM/PEOPLE.DBM</file>
+        <file>DBM/RECYCLE.DBM</file>
+        <file>DBM/SCIENCE.DBM</file>
+        <file>DBM/SIGNS.DBM</file>
+        <file>DBM/SYSTEM.DBM</file>
+        <file>DBM/WINDOWS.DBM</file>
+    </qresource>
+</RCC>

@@ -1,0 +1,15 @@
+/*
+Copyright (c) 1995  Virtual World
+Module Name:
+	 errors.rh
+Author:
+	 Alexander Shelemekhov
+
+*/
+#define __E_start 2512
+#define fmpoints_invalid 1+__E_start
+#define fmprimitives_invalid 2+__E_start
+#define fmrotator_invalid 3+__E_start
+#define fmnopoints 4+__E_start
+#define fmtomanypoints 5+__E_start
+#define fmtomanyprimitives 6+__E_start

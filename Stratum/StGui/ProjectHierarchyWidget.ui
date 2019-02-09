@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ProjectHierarchyWidget</class>
+ <widget class="QWidget" name="ProjectHierarchyWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>261</width>
+    <height>279</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="spacing">
+    <number>4</number>
+   </property>
+   <property name="leftMargin">
+    <number>4</number>
+   </property>
+   <property name="topMargin">
+    <number>4</number>
+   </property>
+   <property name="rightMargin">
+    <number>4</number>
+   </property>
+   <property name="bottomMargin">
+    <number>4</number>
+   </property>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <property name="spacing">
+      <number>2</number>
+     </property>
+     <item>
+      <widget class="QLineEdit" name="lineEditFilter">
+       <property name="clearButtonEnabled">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QTreeView" name="treeViewProjectHierarchy">
+     <property name="contextMenuPolicy">
+      <enum>Qt::CustomContextMenu</enum>
+     </property>
+     <property name="editTriggers">
+      <set>QAbstractItemView::NoEditTriggers</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
+  <action name="actionObjectProperties">
+   <property name="text">
+    <string>Свойства имиджа...</string>
+   </property>
+  </action>
+  <action name="actionEditSchema">
+   <property name="text">
+    <string>Редактировать схему</string>
+   </property>
+  </action>
+  <action name="actionEditSourceCode">
+   <property name="text">
+    <string>Редактировать код</string>
+   </property>
+   <property name="toolTip">
+    <string>Редактировать код</string>
+   </property>
+  </action>
+  <action name="actionEditImage">
+   <property name="text">
+    <string>Редактировать изображение</string>
+   </property>
+  </action>
+  <action name="actionShowOnSchema">
+   <property name="text">
+    <string>Показать на схеме</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

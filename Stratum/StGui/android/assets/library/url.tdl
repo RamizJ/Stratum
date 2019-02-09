@@ -1,0 +1,3 @@
+DLL "inet32.dll" 32
+
+name "URLLoadFile" arg "STRING","STRING","FLOAT":"WORD32" ret "FLOAT":"WORD32"

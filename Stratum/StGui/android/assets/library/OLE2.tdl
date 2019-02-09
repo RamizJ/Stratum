@@ -1,0 +1,8 @@
+DLL "ole2sc32.dll" 32// preload
+
+name "OLECreateObject" arg "STRING"         ret "HANDLE":"WORD32"
+name "OLEDeleteObject" arg "HANDLE":"WORD32" ret "FLOAT":"WORD32"
+name "OLESetVarR8"     arg "HANDLE":"WORD32", "STRING","FLOAT"
+name "OLEGetVarR8"     arg "HANDLE":"WORD32", "STRING" ret "FLOAT"
+name "OLESetVarSTR"    arg "HANDLE":"WORD32", "STRING","STRING"
+name "OLEGetVarSTR"    arg "HANDLE":"WORD32", "STRING" ret "STRING"

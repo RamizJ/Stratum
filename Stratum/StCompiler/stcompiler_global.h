@@ -1,0 +1,12 @@
+#ifndef STCOMPILER_GLOBAL_H
+#define STCOMPILER_GLOBAL_H
+
+#include <QtCore/qglobal.h>
+
+#if defined(STCOMPILER_LIBRARY)
+#  define STCOMPILERSHARED_EXPORT Q_DECL_EXPORT
+#else
+#  define STCOMPILERSHARED_EXPORT Q_DECL_IMPORT
+#endif
+
+#endif // STCOMPILER_GLOBAL_H

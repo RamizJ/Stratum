@@ -1,0 +1,46 @@
+/****************************************************************************
+
+
+test.rh
+
+produced by Borland Resource Workshop
+
+
+*****************************************************************************/
+
+#define IDS_FILESTRING	1
+#define MENU_1	1
+#define CM_DRIVERINFO	128
+#define CM_INSERTTORE	127
+#define CM_INSERTBAR	123
+#define CM_DIRECT	126
+#define CM_PERSPECTIVE	125
+#define CM_RENDER	124
+#define CM_GRID	122
+#define APP_ICON	73
+#define CM_TOOLS2	121
+#define CM_TOOLS	120
+#define CM_PAINTSPACE3D	119
+#define CM_SAVE_METAFILE	118
+#define CM_FROMMETA	115
+#define CM_CREATEMETAFILE	114
+#define CM_EDITREDO	117
+#define CM_EDITCUT1	24322
+#define CM_V400	113
+#define CM_V200	112
+#define CM_V50	111
+#define CM_V25	110
+#define CM_Z_ORDERTO_TOP	106
+#define CM_Z2	109
+#define CM_Z1	108
+#define CM_ZBOTTOM	107
+#define CM_ACTUALSIZE	105
+#define CM_ZOOMOUT	104
+#define CM_ZOOMIN	103
+#define CM_EDITDELETE	24325
+#define CM_EDITPASTE	24324
+#define CM_EDITCOPY	24323
+#define CM_EDITUNDO	116
+#define CM_LOAD	102
+#define CM_SAVE	101
+#define IDB_BITMAP1	1

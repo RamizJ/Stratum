@@ -1,0 +1,59 @@
+// Определение ToolBar ov
+// Русская версия
+// File menu
+command{122 id 1 hint "Load" name "CM_LOAD" menu "Load project"}
+command{130 id 1 hint "Close project" name "CM_PROJECTCLOSE" menu "Close current project"}
+command{368 id 3 hint "Print" name "CM_PRINT" menu "Print active window" rbutton 4074}
+command{127 hint "Quit" name "CM_EXIT" menu "Exit from Stratum Computer "}
+
+
+// View menu
+command{145 id 24 hint "Messages" name "CM_MESSAGES" menu "Show Stratum message window"}
+//End  View menu
+
+
+// Моделирование
+command{116 id 11 hint "Start" name "CM_RUN" style 4 group 1 menu "Start the model, and continue working"}
+command{121 id 10 hint "Step" name "CM_STEP" style 4 group 1 menu "Execute one step"}
+command{119 id 12 hint "Pause" name "CM_PAUSE" style 4 group 1 menu "Pause the work of a model"}
+command{141 id 13 hint "Stop (clear)" name "CM_CLEARALL" style 4 group 1 menu "Close all windows, stop the model, and set all the variables to default"}
+command{652 id 14 hint "Parent project" name "CM_CLOSECHILDPROJECT" menu "Close current project and return to parent project"}
+command{4100 id 25 hint "Previous Page" name "CM_PREVPAGE"  menu "Previous Page"}
+command{4101 id 27 hint "Next Page" name "CM_NEXTPAGE" menu "Next Page"}
+
+
+command{313 id 22 hint "Save variables..." name "CM_STATESAVE" menu "Save variables to a file..."}
+command{314 id 23 hint "Load variables..." name "CM_LOADSTATE" menu "Load variables from a file..."}
+
+
+/* Видео */
+command{331 id 5 hint "Rewind" name "CM_VSTART" }
+command{330 id 7 hint "Play" name "CM_VPLAY" }
+command{333 id 8 hint "Pause"     name "CM_VPAUSE" }
+command{335 id 4 hint "Stop"      name "CM_VSTOP" }
+command{332 id 9 hint "End"  name "CM_VEND" }
+command{646 id 20 hint "Mute"   style 3 name "CM_VNOAUDIO" }
+command{647 id 21 hint "Continious play" style 3 name "CM_VCYCLE" }
+// end video
+
+
+command{4075 id 15 hint "Append new record" name "CM_APPEND" }
+command{4080 id 16 hint "Remove current record" name  "CM_REMOVERECORD" }
+command{4076 id 17 hint "Sort A->Z" name "CM_SORTAZ" }
+command{4077 id 18 hint "Sort Z->A" name "CM_SORTZA" }
+command{4082 id 19 hint "Execute SQl query" name "CM_DOSQL" }
+
+// Сами бары
+
+// базы 50
+
+range "Standard" {id 1,dock 4,"CM_LOAD","CM_PRINT",
+separator,
+"CM_PAUSE","CM_RUN","CM_STEP","CM_CLEARALL","CM_PREVPAGE","CM_NEXTPAGE"
+}
+
+range "Video" {"CM_VSTART","CM_VPLAY","CM_VPAUSE","CM_VSTOP","CM_VEND",separator,"CM_VNOAUDIO","CM_VCYCLE" }
+
+
+range "Data bases" {id 50,"CM_APPEND","CM_REMOVERECORD",separator,"CM_SORTAZ","CM_SORTZA",separator,"CM_DOSQL" }
+

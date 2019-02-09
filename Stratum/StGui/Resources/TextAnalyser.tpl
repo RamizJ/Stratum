@@ -1,0 +1,19 @@
+ name "GetWordInfo" arg "STRING" ret "STRING" out 831
+ name "GetWordInfo" arg "STRING", "HANDLE" out 840
+ name "GetAnswer" arg "STRING","STRING" ret "STRING" out 832
+ name "GetSentanceTree" arg "STRING" ret "STRING" out 833
+ name "GetWordProperty" arg "STRING","STRING","STRING" ret "STRING" out 834
+ name "GetWordPropertyInSent" arg "STRING","STRING","FLOAT","STRING" ret "STRING" out 835
+ name "GetWordInSentByRole" arg "STRING","STRING" ret "STRING" out 836
+ name "GetWordFormCount" arg "STRING" ret "FLOAT" out 837
+ name "GetWordForm" arg "STRING","FLOAT","STRING" ret "STRING" out 838
+ name "SearchWords" arg "STRING" ret "HANDLE" out 839
+ name "SearchWords" arg "STRING","FLOAT" ret "HANDLE" out 891
+ name "SearchWords" arg "STRING","FLOAT","FLOAT" ret "HANDLE" out 892
+ name "FindNextWord" arg "STRING" ret "STRING" out 893
+ name "FindPrevWord" arg "STRING" ret "STRING" out 894
+ name "AnalyseWord" arg "STRING" ret "STRING" out 895
+ name "InitAnalyzer" arg "STRING","STRING","STRING" ret "FLOAT" out 896
+ name "MorphDivide" arg "STRING" ret "STRING" out 897
+ name "SetMorphDivide" arg "STRING","STRING" ret "FLOAT" out 898
+ name "WordDivide" arg "STRING","STRING" ret "STRING" out 899

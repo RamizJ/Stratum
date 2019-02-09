@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>LibrariesWidget</class>
+ <widget class="QWidget" name="LibrariesWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>320</width>
+    <height>406</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="spacing">
+    <number>4</number>
+   </property>
+   <property name="leftMargin">
+    <number>4</number>
+   </property>
+   <property name="topMargin">
+    <number>4</number>
+   </property>
+   <property name="rightMargin">
+    <number>4</number>
+   </property>
+   <property name="bottomMargin">
+    <number>4</number>
+   </property>
+   <item>
+    <widget class="QFrame" name="frame">
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <property name="leftMargin">
+       <number>2</number>
+      </property>
+      <property name="topMargin">
+       <number>2</number>
+      </property>
+      <property name="rightMargin">
+       <number>2</number>
+      </property>
+      <property name="bottomMargin">
+       <number>2</number>
+      </property>
+      <item>
+       <widget class="QToolButton" name="toolButtonHideEmpty">
+        <property name="toolTip">
+         <string>Скрыть пустые библиотеки</string>
+        </property>
+        <property name="icon">
+         <iconset resource="Resources/Resources.qrc">
+          <normaloff>:/22/FolderFavorites_x22.png</normaloff>:/22/FolderFavorites_x22.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>24</width>
+          <height>24</height>
+         </size>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="Line" name="line_2">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QToolButton" name="toolButtonAdd">
+        <property name="toolTip">
+         <string>Добавить библиотеку</string>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>24</width>
+          <height>24</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QToolButton" name="toolButtonAddClass">
+        <property name="toolTip">
+         <string>Добавить новый класс</string>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>24</width>
+          <height>24</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="Line" name="line">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QToolButton" name="toolButtonRemove">
+        <property name="toolTip">
+         <string>Удалить библиотеку</string>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>24</width>
+          <height>24</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <property name="spacing">
+      <number>2</number>
+     </property>
+     <item>
+      <widget class="QLineEdit" name="lineEditFilter">
+       <property name="clearButtonEnabled">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QTreeView" name="treeViewLibraries">
+     <property name="contextMenuPolicy">
+      <enum>Qt::CustomContextMenu</enum>
+     </property>
+     <attribute name="headerVisible">
+      <bool>false</bool>
+     </attribute>
+    </widget>
+   </item>
+  </layout>
+  <action name="actionAddClass">
+   <property name="icon">
+    <iconset resource="Resources/Resources.qrc">
+     <normaloff>:/Class.png</normaloff>:/Class.png</iconset>
+   </property>
+   <property name="text">
+    <string>Добавить класс</string>
+   </property>
+  </action>
+  <action name="actionAddLibrary">
+   <property name="icon">
+    <iconset resource="Resources/Resources.qrc">
+     <normaloff>:/ListAdd_x22.png</normaloff>:/ListAdd_x22.png</iconset>
+   </property>
+   <property name="text">
+    <string>Добавить библиотеку</string>
+   </property>
+  </action>
+  <action name="actionRemove">
+   <property name="icon">
+    <iconset resource="Resources/Resources.qrc">
+     <normaloff>:/ListRemove_x22.png</normaloff>:/ListRemove_x22.png</iconset>
+   </property>
+   <property name="text">
+    <string>Удалить библиотеку</string>
+   </property>
+  </action>
+  <action name="actionOpenInFileManager">
+   <property name="icon">
+    <iconset>
+     <normaloff>:/FolderOpen_x16.png</normaloff>:/FolderOpen_x16.png</iconset>
+   </property>
+   <property name="text">
+    <string>Показать в папке</string>
+   </property>
+  </action>
+  <action name="actionProperties">
+   <property name="text">
+    <string>Свойства</string>
+   </property>
+  </action>
+ </widget>
+ <resources>
+  <include location="Resources/Resources.qrc"/>
+ </resources>
+ <connections/>
+</ui>

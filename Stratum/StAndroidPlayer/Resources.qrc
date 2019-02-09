@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/fonts">
+        <file>Resources/Fonts/arial.ttf</file>
+        <file>Resources/Fonts/arialbd.ttf</file>
+        <file>Resources/Fonts/arialbi.ttf</file>
+        <file>Resources/Fonts/ariali.ttf</file>
+        <file>Resources/Fonts/ariblk.ttf</file>
+    </qresource>
+</RCC>

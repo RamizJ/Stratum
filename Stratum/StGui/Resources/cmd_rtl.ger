@@ -1,0 +1,59 @@
+// Определение ToolBar ov
+// Русская версия
+// File menu
+command{122 id 1 hint "Oeffnen" name "CM_LOAD" menu "Projekt laden"}
+command{130 id 1 hint "Projekt abschliessen" name "CM_PROJECTCLOSE" menu "Aktuelles Projekt abschliessen"}
+command{368 id 3 hint "Druck" name "CM_PRINT" menu "Aktives Fenster drucken" rbutton 4074}
+command{127 hint "Ausgang" name "CM_EXIT" menu "Aus Stratum Computer austreten"}
+
+
+// View menu
+command{145 id 24 hint "Meldungen" name "CM_MESSAGES" menu "Fenster mit Umgebungsmeldungen zeigen"}
+//End  View menu
+
+
+// Моделирование
+command{116 id 11 hint "Anlassung" name "CM_RUN" style 4 group 1 menu "Modell zur Ausfuehrung anlassen oder die Arbeit fortsetzen"}
+command{121 id 10 hint "Ein Schritt" name "CM_STEP" style 4 group 1 menu "Einen Schritt machen"}
+command{119 id 12 hint "Pause" name "CM_PAUSE" style 4 group 1 menu "Modellbetrieb unterbrechen"}
+command{141 id 13 hint "Stopp (nullsetzen)" name "CM_CLEARALL" style 4 group 1 menu "Alles abschliessen, Modell anhalten und Variablen bei Vorgabe einfuehren"}
+command{652 id 14 hint "Vorhergehendes Projekt" name "CM_CLOSECHILDPROJECT" menu "Laufendes Projekt abschliessen und auf das vorhergehende Projekt zurueckkommen"}
+command{4100 id 25 hint "Vorhergehende Seite" name "CM_PREVPAGE"  menu "Vorhergehende Seite"}
+command{4101 id 27 hint "Naechste Seite" name "CM_NEXTPAGE" menu "Naechste Seite"}
+
+
+command{313 id 22 hint "Status speichern..." name "CM_STATESAVE" menu "Variablen in die Datei mit beliebigem Namen eintragen"}
+command{314 id 23 hint "Status laden..." name "CM_LOADSTATE" menu "Variablen aus der Datei mit beliebigem Namen laden"}
+
+
+/* Видео */
+command{331 id 5 hint "In den Anfang" name "CM_VSTART" }
+command{330 id 7 hint "Abspielen" name "CM_VPLAY" }
+command{333 id 8 hint "Pause"     name "CM_VPAUSE" }
+command{335 id 4 hint "Stopp"      name "CM_VSTOP" }
+command{332 id 9 hint "Ins Ende"  name "CM_VEND" }
+command{646 id 20 hint "Tonlos abspielen"   style 3 name "CM_VNOAUDIO" }
+command{647 id 21 hint "Zyklisches Abspielen" style 3 name "CM_VCYCLE" }
+// end video
+
+
+command{4075 id 15 hint "Neue Eintragung ins Ende zusetzen" name "CM_APPEND" }
+command{4080 id 16 hint "Aktuelle Eintragung entfernen" name  "CM_REMOVERECORD" }
+command{4076 id 17 hint "Sortierung in aufsteigender Reihenfolge" name "CM_SORTAZ" }
+command{4077 id 18 hint "Sortierung in vermindernder Reihenfolge" name "CM_SORTZA" }
+command{4082 id 19 hint "SQI-Abfrage ausfuehren" name "CM_DOSQL" }
+
+// Сами бары
+
+// базы 50
+
+range "Standardisierte" {id 1,dock 4,"CM_LOAD","CM_PRINT",
+separator,
+"CM_PAUSE","CM_RUN","CM_STEP","CM_CLEARALL","CM_PREVPAGE","CM_NEXTPAGE"
+}
+
+range "Video" {"CM_VSTART","CM_VPLAY","CM_VPAUSE","CM_VSTOP","CM_VEND",separator,"CM_VNOAUDIO","CM_VCYCLE" }
+
+
+range "Datenbasen" {id 50,"CM_APPEND","CM_REMOVERECORD",separator,"CM_SORTAZ","CM_SORTZA",separator,"CM_DOSQL" }
+

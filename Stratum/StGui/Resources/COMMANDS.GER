@@ -1,0 +1,273 @@
+// Определение ToolBar ov
+// Русская версия
+// File menu
+command{370 hint "Neue Zeichnung" name "CM_NEWSPACE" menu "Vektorielle Zeichnung schaffen"}
+command{154 id 3 hint "Schnelles Schaffen neuen Projektes" name "CM_NEWsimplyPROJECT" menu "Schaffen von neuem Projekt" rbutton 115}
+command{122 id 1 hint "Oeffnen" name "CM_LOAD" menu "Datei laden"}
+command{130 id 1 hint "Projekt abschliessen" name "CM_PROJECTCLOSE" menu "Aktuelles Projekt abschliessen"}
+
+command{368 id 13 hint "Druck" name "CM_PRINT" menu "Aktives Fenster drucken" rbutton 4074}
+command{375 id 89 hint "Aktives Fenster speichern" name "CM_FILESAVE" menu "Aktives Fenster speichern"}
+command{376 hint "Speichern als" name "CM_FILESAVEAS" menu "Das Fenster unter neuem Namen speichern"}
+command{127 hint "Ausgang" name "CM_EXIT" menu "Aus Stratum Computer austreten"}
+
+// View menu
+command{642 hint "&Werkzeugpalette" name "CM_CONTROLBARS" menu "Werkzeugsplatte editieren..."}
+command{378 hint "Statuszeile" name "CM_VIEWSTATUSBAR" menu "Statuszeile zeigen oder verstecken"}
+
+command{648 hint "Hauptmenu" name "CM_VIEWMAINMENU" menu "Hauptmenu zeigen oder verstecken"}
+command{345 id 68 hint "Information ueber das System" name "CM_SYSINFO" menu "Informationsfenster ueber den aktuellen Bestand des Systems oeffnen"}
+command{129 id 78 hint "Projekthierarchie" name "CM_HIERARCHY" menu "Hierarchie des geladenen Projektes zeigen"}
+command{145 id 32 hint "Meldungen" name "CM_MESSAGES" menu "Fenster mit Umgebungsmeldungen zeigen"}
+command{124 id 54 hint "Bibliotheken" name "CM_LIBS" menu "Fenster mit geladenen Bibliotheken zeigen"}
+command{118 id 55 hint "Hauptschema" name "CM_MAINSCHEME" menu "Schema der Wurzelklasse des Projektes oeffnen"}
+//End  View menu
+
+// Edit menu
+command{4072 hint "Redo" name "CM_EDITREDO" menu "Aufhebene Operation wiedergeben"}
+command{4071 hint "Undo" name "CM_EDITUNDO" menu "Letzte Operation aufheben"}
+
+command{109 id 35 hint "Ausschneiden" name "CM_EDITCUT"  menu "Objekt in den Austauschpuffer kopieren und entfernen"}
+command{110 id 36 hint "Kopieren" name "CM_EDITCOPY" menu "Objekt in den Austauschpuffer kopieren"}
+command{111 id 37 hint "Einfuegen" name "CM_EDITPASTE" menu "Objekt aus dem Austauschpuffer einfuegen"}
+command{112 hint "Spezielleinfuegung" name "CM_SPECIALPASTE" menu "Objekt aus dem Austauschpuffer bei der Parameterverwendung einfuegen"}
+command{113 id 34 hint "Entfernen" name "CM_EDITDELETE" menu "Aktuelles Element entfernen"}
+command{114 hint "Dublieren" name "CM_DUPLICATE" menu "Aktuelles Element dublieren"}
+
+// End Edit menu
+
+// Вставка меню
+command{200 hint "Image einfuegen" name "CM_INSERTOBJECT" menu "Image aus der Bibliothek einfuegen..."}
+command{323 hint "Neue Image schaffen und einsetzen..." name "CM_CREATENEWOBJECT" menu "Neue Image schaffen und einsetzen..."}
+command{310 hint "Den Kontaktplatz" name "CM_NEWVARPOINT" menu "Kontaktplatz schaffen"}
+command{301 id 11 hint "Verbindungsdurchfuehrung" name "CM_LINK" style 4 group 2 }
+command{3013 hint "Aus der Datei" name "CM_IMPORTOBJ" menu "Aus der Datei importieren"}
+
+// 2d graphics
+
+command{3000 id 10 hint "Auswahlbetriebsart" name "CM_BASEMODE" style 4 group 2 menu "In Betriebsart der Objekteauswahl uebergehen"}
+command{3001 id 20 hint "Linie" name "CM_LINE" style 4 group 2 menu "In Betriebsart des Linieschaffens uebergehen"}
+command{3014 id 27 hint "Bogen" name "CM_ARC" style 4 group 2 menu "In Betriebsart des Bogenschaffens uebergehen"}
+command{3011 id 98 hint "Polylinie" name "CM_POLYLINE" style 4 group 2 menu "In Betriebsart des Polylinieschaffens uebergehen"}
+command{3002 id 21 hint "Rechteck" name "CM_RECT" style 4 group 2 menu "In Betriebsart des Rechteckschaffens uebergehen"}
+command{3004 id 22 hint "Kreis" name "CM_CIRCLE" style 4 group 2 menu "In Betriebsart des Kreisschaffens uebergehen"}
+command{3003 id 23 hint "Abgerundetes Rechteck" name "CM_ROUNDRECT" style 4 group 2 menu "In Betriebsart des Schaffens von abgerundetem Rechteck uebergehen"}
+command{3009 id 33 hint "Text" name "CM_TEXT" style 4 group 2 menu "In Betriebsart des Texteschaffens uebergehen"}
+command{3005 id 17 hint "Gruppe" name "CM_GROUP" style 4 group 2 menu "In Betriebsart des Gruppeschaffens uebergehen"}
+command{3013 id 30 hint "Aus der Datei einfuegen" name "CM_FILE" menu "Aus der Datei einfuegen"}
+command{3007 hint "Schaffen von Bitmap-Darstellung" name "CM_STATEbitmap" menu "Uebergang zum Dialog des Schaffens von Bitmap-Darstellung"}
+command{3008 hint "Schaffen von Doppelbitmap-Darstellung" name "CM_STATEdouble" menu "Uebergang zum Dialog des Schaffens von Doppelbitmap-Darstellung"}
+command{3012 hint "Projektion von 3d Raum" name "CM_STATEview3d" menu "Schaffen von Projektion des 3d Raums"}
+command{3006 id 17 hint "Regionengruppe" name "CM_RGNGROUP" style 4 group 2 menu "In Betriebsart des Regionsgruppeschaffens uebergehen"}
+command{0 hint "3d Grundelemente" name "CM_PRIMITIVES3D" menu "Nicht unterstuezt"}
+
+// windows items
+command{3020 hint "Edit" name "CM_STATEwinedit" menu "Schaffen von Einfuehrungszeile"}
+command{3021 hint "ComboBox" name "CM_STATEwincombo" menu "Schaffen von ausfallender Liste"}
+command{3022 hint "CheckBox" name "CM_STATEwincheck" menu "Schaffen von CheckBox"}
+command{3023 hint "RadioButton" name "CM_STATEwinradio" menu "Radioknopfschaffen"}
+command{3024 hint "Button" name "CM_STATEwinbutton" menu "Knopfschaffen"}
+command{3025 hint "ListBox" name "CM_STATEwinlistbox" menu "Listeschaffen"}
+// 3d
+command{3057 hint "Kamera dublieren" name "CM_3DCLONECAMERA" menu "Kopie zur Zeit benutzte Kamera schaffen"}
+command{3056 hint "Eine neue Kamera schaffen" name "CM_3DNEWDEFCAMERA" menu "Eine Kamera mit Vorgabeparametern schaffen"}
+// END Вставка меню
+
+// Формат menu
+// Z ордер
+command{139 hint "In den Vordergrund" name "CM_TOFRONT" menu "Aktuelles 2d Objekt in den Vordergrund stellen"}
+command{147 hint "In den Hintergrund" name "CM_TOBACK" menu "Aktuelles 2d Objekt in den Hintergrund stellen"}
+command{148 hint "Annaehern" name "CM_FORWARDONE" menu "Aktuelles 2d Objekt oberhalb anderen einstellen"}
+command{149 hint "Entfernen" name "CM_BACKONE" menu "Aktuelles 2d Objekt hinter anderen einstellen"}
+
+
+command{343 hint "In die Gruppe zusetzen" name "CM_ADDTOGROUP" menu "Ein neues Objekt in die ausgewaehlte Gruppe zusetzen"}
+command{341 hint "Gruppetrennung" name "CM_UNGROUP" menu "Aktive Gruppe trennen"}
+command{342 hint "Aus der Gruppe entfernen" name "CM_DELFROMGROUP" menu "Aktuelles Objekt aus der Vatergruppe entfernen"}
+
+command{215 id 58 hint "Imageeigenschaften" name "CM_PROPERTIES" menu "Eigenschaften des ausgewaehlten Objektes..."}
+command{216 id 56 hint "Imageschema" name "CM_IMGSCHEME" menu "Schema der aktiven Image"}
+command{336 id 33 hint "Imagemodell" name "CM_TEXT" menu "Text der aktiven Image"}
+command{217 id 57 hint "Imagedarstellung" name "CM_IMAGE" menu "Darstellung aktiver Image"}
+// End Формат menu
+
+// Лист
+command{137 hint "Gitter ein/aus" name "CM_LAYERGRID" menu "Gittersichtbarkeitumschaltung"}
+command{134 hint "Imagensichtbarkeit" name "CM_LAYERCLASSES" menu "Imagensichtbarkeitumschaltung"}
+command{135 hint "Verbindungensichtbarkeit" name "CM_LAYERLINKS" menu "Verbindungensichtbarkeitumschaltung"}
+command{136 hint "Graphiksichtbarkeit" name "CM_LAYEROTHER" menu "Sichtbarkeitumschaltung der graphischen Objekten"}
+command{151 hint "Schichten editieren..." name "CM_LAYERCUSTOM" menu "Schichten editieren..."}
+command{153 hint "Windows on/off" name "CM_HOOKCONTROLS" menu "Windows-Fensterbetrieb auf dem Blatt verbieten oder erlauben"}
+command{101 hint "Exportieren..." name "CM_SAVESCHEME" menu "Aktuelles Fenster exportieren"}
+command{344 hint "Blattparameter" name "CM_SPACEPROP" menu "Oeffnung des Dialogs mit Eigenschaften des aktiven Blattes"}
+command{138 id 12 hint "Berechnungsordnung" name "CM_CALCORDER" style 4 group2  menu "Berechnungsordnung editieren"}
+command{4105 id 38 hint "Imagenamen" name "CM_IMGNAMES" style 4 group2 }
+
+// end Лист
+
+// Моделирование
+command{116 id 41 hint "Anlassung" name "CM_RUN" style 4 group 1 menu "Modell zur Ausfuehrung anlassen oder die Arbeit fortsetzen"}
+command{121 id 40 hint "Ein Schritt" name "CM_STEP" style 4 group 1 menu "Einen Schritt machen"}
+command{119 id 42 hint "Pause" name "CM_PAUSE" style 4 group 1 menu "Modellbetrieb unterbrechen"}
+command{141 id 43 hint "Stopp (nullsetzen)" name "CM_CLEARALL" style 4 group 1 menu "Alles abschliessen, Modell anhalten und Variablen bei Vorgabe einfuehren"}
+command{652 id 24 hint "Vorhergehendes Projekt" name "CM_CLOSECHILDPROJECT" menu "Laufendes Projekt abschliessen und auf das vorhergehende Projekt zurueckkommen"}
+                 
+command{4100 id 67 hint "####" name "CM_PREVPAGE"  menu "Vorhergehende Seite"}
+command{4101 id 69 hint "####" name "CM_NEXTPAGE" menu "Naechste Seite"}
+
+
+command{340 id 74 hint "Status in default.stt speichern" name "CM_SAVETODEF" menu "Variablen in die Datei mit Vorgabenamen : default.stt eintragen" rbutton 313}
+command{339 id 75 hint "Status aus der default.stt laden" name "CM_LOADFROMDEF" menu "Variablen aus der Datei mit Vorgabenamen : default.stt laden" rbutton 314}
+command{377 id 65 hint "Alle Aenderungen speichern" name "CM_SAVEALL" menu "Alle Aenderungen, die in die Klassen eingetragen wurden, speichern" rbutton 4097}
+
+command{313 id 74 hint "Status speichern..." name "CM_STATESAVE" menu "Variablen in die Datei mit beliebigem Namen eintragen"}
+command{314 id 75 hint "Status laden..." name "CM_LOADSTATE" menu "Variablen aus der Datei mit beliebigem Namen laden"}
+
+command{337 hint "Imagevariablen speichern" name "CM_OBJECTVARSAVE" menu "Variablen der aktiven Image in die Datei speichern"}
+command{338 hint "Imagevariablen lesen" name "CM_OBJECTVARLOAD" menu "Variablen aktiver Image aus der Datei lesen"}
+command{2268 hint "Bei Vorgabe einfuehren" name "CM_OBJECTVARDEF" menu "Variablen aktiver Image bei Vorgabe einfuehren"}
+
+command{312 hint "Variablen nullen" name "CM_VARCLEAR" menu "Alle Variablen nullen"}
+command{143 hint "Stroeme abschliessen" name "CM_CLOSESTREAM" menu "Alle offene Stroeme abschliessen"}
+command{144 hint "Fenster zumachen" name "CM_CLOSEWINDOWS" menu "Fenster, die vom Modell geoeffnet wurden, zumachen"}
+command{329 hint "Alle Basen abschliessen" name "CM_CLOSEDATABASES" menu "Alle offene Basen abschliessen"}
+command{2275 hint "Videodateien abschliessen" name "CM_CLOSEVIDEOS" menu "Videodateien, die bei den Framen nicht verwendet sind, abschliessen"}
+
+command{117 hint "Umgebungsparameter" name "CM_DESCKTOP" menu "Dialog mit Umgebungsparametern"}
+
+// Окна
+command{102 hint "Kaskadenweise" name "CM_CASCADECHILDREN" menu "Fenster kaskadenweise anordnen"}
+command{103 hint "Dachziegel waagerecht" name "CM_TILEHORZ" menu "Dachziegel waagerecht"}
+command{104 hint "Dachziegel senkrecht" name "CM_TILEVERT" menu "Dachziegel senkrecht"}
+command{105 hint "Ikonen in Ordnung bringen" name "CM_ARRANGEICONS" menu "Ikonen in Ordnung bringen"}
+command{4053 hint "Editierfenster zumachen" name "CM_CLOSEEDITCHILDREN" menu "Editierfenster zumachen"}
+command{106 hint "Alle Fenster zumachen" name "CM_CLOSECHILDREN" menu "Alle Fenster zumachen"}
+// end
+
+// help
+command{318 hint "Inhalt" name "CM_HELPINDEX1" menu "Hilfeinhalt"}
+command{321 hint "Tastatur" name "CM_HELPKEYBOARD" menu "Hilfe bei der Tastaturarbeit"}
+command{320 hint "Auskunftsbenutzung" name "CM_HELPUSING_HELP" menu "Wie das Auskunftssystem richtig benutzen"}
+command{315 hint "Arbeit an der Graphik" name "CM_HELPGRAPI" menu "Hilfe bei der Arbeit an der Graphik"}
+command{327 hint "Programmierung" name "CM_APIREFERENCE" menu "Hilfe bei der Programmierung"}
+command{316 hint "Modellierungstheorie" name "CM_HELPTHEORY" menu "Hilfe bei der Modellierungstheorie"}
+command{4065 hint "Systembibliotheken" name "CM_LIBHELP" menu "Hilfe bei den Systembibliotheken"}
+command{346 hint "Technische Unterstuetzung" name "CM_SUPPORT" menu "Wie die technische Unterstuetzung erhalten"}
+command{319 hint "Ueber das Programm..." name "CM_HELPABOUT" menu "Information ueber das Programm erhalten..."}
+// end help
+
+/* Редактирование */
+
+command{305 id 26 hint "Punkte editieren " name "CM_EDITPOINTS" style 3 menu "In Betriebsart der Editierung von Polyliniepunkten uebergehen"}
+
+command{4063 id 64 hint "Masstab" name "CM_SCALEDIALOG"
+  combo {command 2262 size 50 strings{"5%","10%","25%","33%","50%","100%"!,"150%","200%","300%","400%","500%"}}
+}
+
+command{303 id 16 hint "Linse" name "CM_ZOOM" style 4 group 2 rbutton 4063}
+command{3015 id 46 hint "Fensterinhalt umstellen" name "CM_DRAG" style 4 group 2}
+
+command{0   id 14 hint "Hilfe" name "CM_LOCALHELP" }
+
+
+/* Видео */
+command{331 id 5 hint "In den Anfang" name "CM_VSTART" }
+command{330 id 7 hint "Abspielen" name "CM_VPLAY" }
+command{333 id 8 hint "Pause"     name "CM_VPAUSE" }
+command{335 id 4 hint "Stopp"      name "CM_VSTOP" }
+command{332 id 9 hint "Ins Ende"  name "CM_VEND" }
+
+command{4103 id 6 hint "Naechstes Bild"  name "CM_AVINEXT" }
+command{4104 id 25 hint "Vorhergehendes Bild"  name "CM_AVIPREV" }
+
+
+command{646  id 73 hint "Tonlos abspielen"   style 3 name "CM_VNOAUDIO" }
+command{647  id 61 hint "Zyklisches Abspielen" style 3 name "CM_VCYCLE" }
+command{4098 id 48 hint "Einfuehrung von transparenter Farbe" style 4 group 2 name "CM_GETTRANSPARENT" }
+
+// end video
+
+/* Редактирование  битовых карт*/
+
+command{3036 id 47 group 3 hint "Pipette" style 4 name "CM_bPIPE" }
+command{3028 id 19 group 3 hint "Bleistift" style 4 name "CM_bPEN" }
+command{3029 id 20 group 3 hint "Linie"     style 4 name "CM_bLINE" }
+command{3030 id 21 group 3 hint "Rechteck"   style 4 name "CM_bRECT" }
+command{3031 id 44 group 3 hint "uebermaltes Rechteck" style 4 name "CM_bFILLRECT" }
+command{3032 id 22 group 3 hint "Ellipse" style 4 name "CM_bELLIPSE" }
+command{3033 id 45 group 3 hint "uebermalte Ellipse" style 4 name "CM_bFILLELLIPSE" }
+command{3034 id 18 group 3 hint "Uebermalen"     style 4 name "CM_bFILL" }
+command{3035 id 29 group 3 hint "Schere"      style 4 name "CM_bCUTTER" }
+command{3039 id 99 group 3 hint "Zerstaeuber"  style 4 name "CM_bSPRAY" }
+
+command{363  id 39 hint "Farbe"          name "CM_bCOLOR" }
+command{3037 id 28 hint "Gitter (On/Off)" style 3 name "CM_bGRID" }
+
+
+command{3046 id 81 group 2  hint "Umstellung" style 4              name "CM_MOVE3D" }
+command{3047 id 80 group 2  hint "Objektabmessung" style 4           name "CM_SIZE3D" }
+command{3048 id 82 group 2  hint "Drehung" style 4   rbutton 4087  name "CM_ROTATE3D" }
+command{3050 id 60 group 2  hint "Masstabeinfuehrung" style 4           name "CM_scnSIZE3D" }
+command{3051 id 62 group 2  hint "Kameradrehung" style 4           name "CM_EDITCAMERA3D" }
+
+command{4056 id 92 hint "Dreidimensionales Parallelepiped"     name "CM_primBAR3D" }
+command{4057 id 95 hint "Dreidimensionaler Torus"  name "CM_primTORE3D" }
+command{4058 id 93 hint "Dreidimensionaler Zylinder"   name "CM_primCYLINDER3D" }
+command{4059 id 91 hint "Dreidimensionale Sphaere"  name "CM_primSPHERE3D" }
+command{4060 id 97 hint "Dreidimensionaler Kegel"  name "CM_primCONE3D" }
+command{4102 id 96 hint "Dreidimensionale Pyramide"  name "CM_primPYRAMID3D" }
+command{4061 id 94 hint "Dreidimensionale Hemisphaere"  name "CM_primSUBSPHERE3D" }
+
+
+command{4092 id 90 hint "Dreidimensionale Grundelemente" style 3 name "CM_PRIMITIVE3D" }
+
+command{3065 id 107 hint "Materialeditierung"  name "CM_EDITTEXTURES" }
+
+
+command{3053 id 109 hint "Betriebsart der Koordinatenanpassung" name "CM_3Dsystem"
+  combo {command 3053 size 60 listonly strings{"View","World","Local"!,"Parent"}}
+}
+
+command{3054 id 109 hint "Betriebsart der Koordinatenanpassung" name "CM_3Daxis"
+  combo {command 3054 size 55 listonly strings{"X-Y-Z","X-Y","Z-X","Z-Y","X","Y"!,"Z"}}
+}
+
+command{3055 id 86 hint "Koordinatensystemfixierung" style 3 name "CM_LOCKaxis3D" }
+
+command{4075 id 100 hint "Neue Eintragung ins Ende zusetzen" name "CM_APPEND" }
+command{4080  id 101 hint "Aktuelle Eintragung entfernen" name  "CM_REMOVERECORD" }
+command{4076 id 102 hint "Sortierung in aufsteigender Reihenfolge" name "CM_SORTAZ" }
+command{4077 id 103 hint "Sortierung in vermindernder Reihenfolge" name "CM_SORTZA" }
+command{4082 id 104 hint "SQI-Abfrage ausfuehren" name "CM_DOSQL" }
+
+// Сами бары
+
+
+// 2d - 20
+// 3d - 30
+// битовый 40
+// базы 50
+
+range "Standardisierte" {id 1,dock 4, "CM_NEWsimplyPROJECT","CM_LOAD","CM_PRINT",
+separator,"CM_EDITDELETE","CM_EDITCUT","CM_EDITCOPY","CM_EDITPASTE",separator,"CM_SAVETODEF",
+"CM_LOADFROMDEF","CM_SAVEALL","CM_FILESAVE",separator,"CM_SYSINFO","CM_HIERARCHY","CM_LIBS","CM_MESSAGES"}
+
+range "Steuerung" {id 2,dock 1,"CM_PAUSE","CM_RUN","CM_STEP","CM_CLEARALL",separator,"CM_PREVPAGE","CM_NEXTPAGE"}
+
+range "Zeichnen" {id 20,dock 1, "CM_BASEMODE","CM_LINK","CM_CALCORDER","CM_IMGNAMES",separator,"CM_LINE","CM_POLYLINE","CM_RECT",
+				   "CM_ROUNDRECT","CM_CIRCLE","CM_ARC","CM_TEXT","CM_GROUP",separator,"CM_FILE",separator,"CM_DRAG","CM_ZOOM",separator,"CM_SCALEDIALOG",separator,"CM_EDITPOINTS"}
+
+range "Biteditierer" {id 40, "CM_bPIPE","CM_bPEN","CM_bLINE","CM_bRECT","CM_bFILLRECT",
+      "CM_bELLIPSE","CM_bFILLELLIPSE","CM_bFILL","CM_bSPRAY","CM_bCUTTER",separator,"CM_bCOLOR","CM_bGRID"}
+
+range "Video" {"CM_VSTART","CM_VPLAY","CM_VPAUSE","CM_VSTOP","CM_VEND",separator,"CM_AVIPREV","CM_AVINEXT",separator,"CM_VNOAUDIO","CM_VCYCLE",separator,"CM_GETTRANSPARENT"}
+
+range "Dreidimensionale Graphik" {id 30,dock 3, "CM_MOVE3D","CM_SIZE3D","CM_ROTATE3D",separator,
+                     "CM_EDITCAMERA3D",separator,"CM_3Dsystem",separator,"CM_3Daxis",separator,"CM_LOCKaxis3D",separator,
+// примитивы
+"CM_PRIMITIVE3D",separator,"CM_EDITTEXTURES" }
+
+range "Dreidimensionale Grundelemente" { id 4092, "CM_primBAR3D","CM_primTORE3D","CM_primCYLINDER3D","CM_primSPHERE3D","CM_primCONE3D","CM_primPYRAMID3D","CM_primSUBSPHERE3D" }
+
+range "Datenbasen" {id 50,"CM_APPEND","CM_REMOVERECORD",separator,"CM_SORTAZ","CM_SORTZA",separator,"CM_DOSQL" }
+

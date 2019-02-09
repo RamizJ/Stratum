@@ -1,0 +1,282 @@
+// Определение ToolBar ov
+// Русская версия
+// File menu
+command{370 hint "New picture" name "CM_NEWSPACE" menu "Create vector drawing (VDR)"}
+command{154 id 3 hint "Fast creation of a project" name "CM_NEWsimplyPROJECT" menu "Create new project" rbutton 115}
+command{122 id 1 hint "Load" name "CM_LOAD" menu "Load file"}
+command{130 id 1 hint "Close project" name "CM_PROJECTCLOSE" menu "Close current project"}
+
+command{368 id 13 hint "Print" name "CM_PRINT" menu "Print active window" rbutton 4074}
+command{375 id 89 hint "Save active window" name "CM_FILESAVE" menu "Save active window"}
+command{376 hint "Save as" name "CM_FILESAVEAS" menu "Save window with a new name"}
+command{127 hint "Quit" name "CM_EXIT" menu "Exit from Stratum Computer "}
+
+// View menu
+command{642 hint "Tools panel" name "CM_CONTROLBARS" menu "Edit tools panel..."}
+command{378 hint "Status bar" name "CM_VIEWSTATUSBAR" menu "Show/hide status bar"}
+
+command{648 hint "Main menu" name "CM_VIEWMAINMENU" menu "Show/hide main menu"}
+command{345 id 68 hint "System information" name "CM_SYSINFO" menu "Open system information window"}
+command{129 id 78 hint "Project hierarchy" name "CM_HIERARCHY" menu "Show current project hierarchy"}
+command{145 id 32 hint "Messages" name "CM_MESSAGES" menu "Show Stratum message window"}
+command{124 id 54 hint "Libraries" name "CM_LIBS" menu "Show the attached libraries window"}
+command{118 id 55 hint "Main scheme" name "CM_MAINSCHEME" menu "Open main scheme of current project"}
+//End  View menu
+
+// Edit menu
+command{4072 hint "Redo" name "CM_EDITREDO" menu "Undo the last operation"}
+command{4071 hint "Undo" name "CM_EDITUNDO" menu "Redo the last operation"}
+
+command{109 id 35 hint "Cut" name "CM_EDITCUT"  menu "Copy object to clipboard and delete"}
+command{110 id 36 hint "Copy" name "CM_EDITCOPY" menu "Copy object to clipboard"}
+command{111 id 37 hint "Paste" name "CM_EDITPASTE" menu "Paste object from clipboard"}
+command{112 hint "Paste special" name "CM_SPECIALPASTE" menu "Paste object from clipboard using special parameters"}
+command{113 id 34 hint "Delete" name "CM_EDITDELETE" menu "Delete current element"}
+command{114 hint "Duplicate" name "CM_DUPLICATE" menu "Duplicate current element"}
+
+// End Edit menu
+
+// Вставка меню
+command{200 hint "Insert object..." name "CM_INSERTOBJECT" menu "Insert imige from library..."}
+command{323 id 108 hint "Create & insert a new object..." name "CM_CREATENEWOBJECT" menu "Create & insert a new object..."}
+command{310 hint "Contact square" name "CM_NEWVARPOINT" menu "Create a contact square"}
+command{301 id 11 hint "Create link" name "CM_LINK" style 4 group 2 }
+command{3013 hint "From file" name "CM_IMPORTOBJ" menu "Import from file"}
+
+// 2d graphics
+
+command{3000 id 10 hint "Selection mode" name "CM_BASEMODE" style 4 group 2 menu "Switch to object selection mode"}
+command{3001 id 20 hint "Line" name "CM_LINE" style 4 group 2 menu "Create Line"}
+command{3014 id 27 hint "Arc" name "CM_ARC" style 4 group 2 menu "Create Arc"}
+command{3011 id 98 hint "PolyLine" name "CM_POLYLINE" style 4 group 2 menu "Create PolyLine"}
+command{3002 id 21 hint "Rectangle" name "CM_RECT" style 4 group 2 menu "Create rectangle"}
+command{3004 id 22 hint "Circle" name "CM_CIRCLE" style 4 group 2 menu "Create circle"}
+command{3003 id 23 hint "Rounded rectangle" name "CM_ROUNDRECT" style 4 group 2 menu "Create a Rectangle with rounded edges"}
+command{3009 id 33 hint "Text" name "CM_TEXT" style 4 group 2 menu "Create Text"}
+command{3005 id 17 hint "Group" name "CM_GROUP" style 4 group 2 menu "Create Group"}
+command{3013 id 30 hint "Insert from file" name "CM_FILE" menu "Insert from file"}
+command{3007 hint "Create a DIB card" name "CM_STATEbitmap" menu "Create DIB card..."}
+command{3008 hint "Create a double DIB card" name "CM_STATEdouble" menu "Create double DIB card..."}
+command{3012 hint "3D space projection" name "CM_STATEview3d" menu "Create 3D space projection"}
+command{3006 id 17 hint "Group of regions" name "CM_RGNGROUP" style 4 group 2 menu "Create group of regions"}
+command{0 hint "3D primitives" name "CM_PRIMITIVES3D" menu "Not supported"}
+
+// windows items
+command{3020 hint "Edit" name "CM_STATEwinedit" menu "Create text entry line"}
+command{3021 hint "ComboBox" name "CM_STATEwincombo" menu "Create a combobox"}
+command{3022 hint "CheckBox" name "CM_STATEwincheck" menu "Create a CheckBox"}
+command{3023 hint "RadioButton" name "CM_STATEwinradio" menu "Create RadioButton"}
+command{3024 hint "Button" name "CM_STATEwinbutton" menu "Create Button"}
+command{3025 hint "ListBox" name "CM_STATEwinlistbox" menu "Create List"}
+// 3d
+command{3057 hint "Duplicate camera" name "CM_3DCLONECAMERA" menu "Create a copy of currently used camera"}
+command{3056 hint "Create new camera" name "CM_3DNEWDEFCAMERA" menu "Create default camera"}
+// END Вставка меню
+
+// Формат menu
+// Z ордер
+command{139 hint "Move to the top" name "CM_TOFRONT" menu "Move current 2D object to the top"}
+command{147 hint "Move to the bottom" name "CM_TOBACK" menu "Move current 2D object to the bottom"}
+command{148 hint "Forward one" name "CM_FORWARDONE" menu "Move current 2D object one step to the top"}
+command{149 hint "Backward one" name "CM_BACKONE" menu "Move current 2D object one step back"}
+
+
+command{343 hint "Add to group" name "CM_ADDTOGROUP" menu "Add a new object to the group"}
+command{341 hint "Destroy group" name "CM_UNGROUP" menu "Destroy current group's structure"}
+command{342 hint "Delete from group" name "CM_DELFROMGROUP" menu "Delete current object from parent group"}
+
+command{215 id 58 hint "Object properties" name "CM_PROPERTIES" menu "Properties of selected object..."}
+command{216 id 56 hint "Active object scheme..." name "CM_IMGSCHEME" menu "Scheme of class..."}
+command{336 id 33 hint "Model of class" name "CM_TEXT" menu "Active class text..."}
+command{217 id 57 hint "Class picture" name "CM_IMAGE" menu "Active object picture..."}
+// End Формат menu
+
+// Лист
+command{137 hint "Grid on/off" name "CM_LAYERGRID" menu "Grid on/off toggle"}
+command{134 hint "Objects visibility" name "CM_LAYERCLASSES" menu "Objects invisibility toggle"}
+command{135 hint "Links visibility" name "CM_LAYERLINKS" menu "Links visibility toggle..."}
+command{136 hint "Graphics visibility" name "CM_LAYEROTHER" menu "Toggle of visibility of graphic objects"}
+command{151 hint "Edit layers..." name "CM_LAYERCUSTOM" menu "Edit layers..."}
+command{153 hint "Windows on/off" name "CM_HOOKCONTROLS" menu "Allow or disallow the work of Windows windows on the sheet"}
+command{101 hint "Export..." name "CM_SAVESCHEME" menu "Export current window"}
+command{344 hint "Sheet parameters" name "CM_SPACEPROP" menu "Opens dialogue with active sheet properties"}
+command{138 id 12 hint "Order of calculations" name "CM_CALCORDER" style 4 group2  menu "Edit order of calculations"}
+command{4105 id 38 hint "Object names" name "CM_IMGNAMES" style 4 group2 }
+
+// end Лист
+
+// Моделирование
+command{116 id 41 hint "Start" name "CM_RUN" style 4 group 1 menu "Start the model, and continue working"}
+command{121 id 40 hint "Step" name "CM_STEP" style 4 group 1 menu "Execute one step"}
+command{119 id 42 hint "Pause" name "CM_PAUSE" style 4 group 1 menu "Pause the work of a model"}
+command{141 id 43 hint "Stop (clear)" name "CM_CLEARALL" style 4 group 1 menu "Close all windows, stop the model, and set all the variables to default"}
+command{652 id 24 hint "Parent project" name "CM_CLOSECHILDPROJECT" menu "Close current project and return to parent project"}
+
+command{4112 id 50 hint "Bold" name       "CM_TEXTBOLD"      style 3 }
+command{4113 id 51 hint "Italic" name         "CM_TEXTITALIC"    style 3}
+command{4114 id 52 hint "Underlined" name  "CM_TEXTUNDERLINE" style 3}
+command{4115 id 53 hint "Strike out" name "CM_TEXTSTRIKE"    style 3 }
+command{4116 id 58 hint "Foreground color" name "CM_TEXTFGCOLOR"  }
+command{4117 id 57 hint "Background color" name "CM_TEXTBKCOLOR"   }
+
+command{4100 id 67 hint "Previous Page" name "CM_PREVPAGE"  menu "Previous Page"}
+command{4101 id 69 hint "Next Page" name "CM_NEXTPAGE" menu "Next Page"}
+
+
+command{340 id 74 hint "Save variables to default.stt" name "CM_SAVETODEF" menu "Save variables to a default file : default.stt" rbutton 313}
+command{339 id 75 hint "Load variables from default.stt" name "CM_LOADFROMDEF" menu "Load  variables from a default file : default.stt" rbutton 314}
+command{377 id 65 hint "Save all project changes" name "CM_SAVEALL" menu "Save all changes in project and classes" rbutton 4097}
+
+command{313 id 74 hint "Save variables..." name "CM_STATESAVE" menu "Save variables to a file..."}
+command{314 id 75 hint "Load variables..." name "CM_LOADSTATE" menu "Load variables from a file..."}
+
+command{337 hint "Save variables..." name "CM_OBJECTVARSAVE" menu "Save variables to a file..."}
+command{338 hint "Load variables..." name "CM_OBJECTVARLOAD" menu "Load variables from a file..."}
+command{2268 hint "Set default" name "CM_OBJECTVARDEF" menu "Set active object variables to default values"}
+
+command{312 hint "Nill the variables" name "CM_VARCLEAR" menu "Set value of all variables to nill"}
+command{143 hint "Close streams" name "CM_CLOSESTREAM" menu "Close all open streams"}
+command{144 hint "Close windows" name "CM_CLOSEWINDOWS" menu "Close all windows opened by model"}
+command{329 hint "Close all open DBF's" name "CM_CLOSEDATABASES" menu "Close all open DBF's"}
+command{2275 hint "Close video files" name "CM_CLOSEVIDEOS" menu "Close video files that are not used by video frames"}
+
+command{117 hint "Application settings" name "CM_DESCKTOP" menu "Application settings dialogue"}
+
+// Окна
+command{102 hint "Cascade" name "CM_CASCADECHILDREN" menu "Arrange windows using cascade procedure"}
+command{103 hint "Tile horizontally" name "CM_TILEHORZ" menu "Tile horizontally"}
+command{104 hint "Tile vertically" name "CM_TILEVERT" menu "Tile vertically"}
+command{105 hint "Arrange icons" name "CM_ARRANGEICONS" menu "Arrange icons"}
+command{4053 hint "Close all editor windows" name "CM_CLOSEEDITCHILDREN" menu "Close all editor windows"}
+command{106 hint "Close all windows" name "CM_CLOSECHILDREN" menu "Close all windows"}
+// end
+
+// help
+command{318 hint "Contents" name "CM_HELPINDEX1" menu "Help contents"}
+command{321 hint "Keyboard" name "CM_HELPKEYBOARD" menu "Help on how to use keyboard"}
+command{320 hint "How to use help" name "CM_HELPUSING_HELP" menu "Help on how to use help system correctly"}
+command{315 hint "Graphics" name "CM_HELPGRAPI" menu "Help on graphics"}
+command{327 hint "Programming" name "CM_APIREFERENCE" menu "Help on programming"}
+command{316 hint "Modelling theory" name "CM_HELPTHEORY" menu "Help on a theory of writing models"}
+command{4065 hint "System libraries" name "CM_LIBHELP" menu "System Libraries help"}
+command{346 hint "Tech support" name "CM_SUPPORT" menu "How to get tech support?"}
+command{319 hint "About..." name "CM_HELPABOUT" menu "Get program information..."}
+// end help
+
+/* Редактирование */
+
+command{305 id 26 hint "Edit points" name "CM_EDITPOINTS" style 3 menu "Switch to polyline points editing"}
+
+command{4063 id 64 hint "Scale" name "CM_SCALEDIALOG"
+  combo {command 2262 size 50 strings{"5%","10%","25%","33%","50%","100%"!,"150%","200%","300%","400%","500%"}}
+}
+
+command{303 id 16 hint "Lens" name "CM_ZOOM" style 4 group 2 rbutton 4063}
+command{3015 id 46 hint "Move window contents" name "CM_DRAG" style 4 group 2}
+
+command{0   id 14 hint "Help" name "CM_LOCALHELP" }
+
+
+/* Видео */
+command{331 id 5 hint "Rewind" name "CM_VSTART" }
+command{330 id 7 hint "Play" name "CM_VPLAY" }
+command{333 id 8 hint "Pause"     name "CM_VPAUSE" }
+command{335 id 4 hint "Stop"      name "CM_VSTOP" }
+command{332 id 9 hint "End"  name "CM_VEND" }
+
+command{4103 id 6 hint "Next video frame"  name "CM_AVINEXT" }
+command{4104 id 25 hint "Previous video frame"  name "CM_AVIPREV" }
+
+
+command{646  id 73 hint "Mute"   style 3 name "CM_VNOAUDIO" }
+command{647  id 61 hint "Continious play" style 3 name "CM_VCYCLE" }
+command{4098 id 48 hint "Set transparent color" style 4 group 2 name "CM_GETTRANSPARENT" }
+
+// end video
+
+/* Редактирование  битовых карт*/
+
+command{3036 id 47 group 3 hint "Droplet" style 4 name "CM_bPIPE" }
+command{3028 id 19 group 3 hint "Pencil" style 4 name "CM_bPEN" }
+command{3029 id 20 group 3 hint "Line"     style 4 name "CM_bLINE" }
+command{3030 id 21 group 3 hint "Rectangle"   style 4 name "CM_bRECT" }
+command{3031 id 44 group 3 hint "Filled rectangle" style 4 name "CM_bFILLRECT" }
+command{3032 id 22 group 3 hint "ellipse" style 4 name "CM_bELLIPSE" }
+command{3033 id 45 group 3 hint "filled ellipse" style 4 name "CM_bFILLELLIPSE" }
+command{3034 id 18 group 3 hint "paint"     style 4 name "CM_bFILL" }
+command{3035 id 29 group 3 hint "scissors"      style 4 name "CM_bCUTTER" }
+command{3039 id 99 group 3 hint "sprayer"  style 4 name "CM_bSPRAY" }
+
+command{363  id 39 hint "Colour"          name "CM_bCOLOR" }
+command{3037 id 28 hint "Grid (On/Off)" style 3 name "CM_bGRID" }
+
+
+command{3046 id 81 group 2  hint "Move" style 4              name "CM_MOVE3D" }
+command{3047 id 80 group 2  hint "Size" style 4           name "CM_SIZE3D" }
+command{3048 id 82 group 2  hint "Rotate" style 4   rbutton 4087  name "CM_ROTATE3D" }
+command{3050 id 60 group 2  hint "Scale" style 4           name "CM_scnSIZE3D" }
+command{3051 id 62 group 2  hint "Turn camera" style 4           name "CM_EDITCAMERA3D" }
+
+command{4056 id 92 hint "3-dimensional Box"     name "CM_primBAR3D" }
+command{4057 id 95 hint "3-dimensional torus"  name "CM_primTORE3D" }
+command{4058 id 93 hint "3-dimensional cylinder"   name "CM_primCYLINDER3D" }
+command{4059 id 91 hint "3-dimensional shpere"  name "CM_primSPHERE3D" }
+command{4060 id 97 hint "3-dimensional cone"  name "CM_primCONE3D" }
+command{4102 id 96 hint "3-dimensional pyramid"  name "CM_primPYRAMID3D" }
+command{4061 id 94 hint "3-dimensional hemisphere"  name "CM_primSUBSPHERE3D" }
+
+
+command{4092 id 90 hint "3d primitives" style 3 name "CM_PRIMITIVE3D" }
+
+command{3065 id 107 hint "Material editor"  name "CM_EDITTEXTURES" }
+
+
+command{3053 id 109 hint "Axis attaching mode" name "CM_3Dsystem"
+  combo {command 3053 size 60 listonly strings{"View","World","Local"!,"Parent"}}
+}
+
+command{3054 id 109 hint "Axis attaching mode" name "CM_3Daxis"
+  combo {command 3054 size 55 listonly strings{"X-Y-Z","X-Y","Z-X","Z-Y","X","Y"!,"Z"}}
+}
+
+command{3055 id 86 hint "Fixed coordinate systems" style 3 name "CM_LOCKaxis3D" }
+
+command{4075 id 100 hint "Append new record" name "CM_APPEND" }
+command{4080  id 101 hint "Remove current record" name  "CM_REMOVERECORD" }
+command{4076 id 102 hint "Sort A->Z" name "CM_SORTAZ" }
+command{4077 id 103 hint "Sort Z->A" name "CM_SORTZA" }
+command{4082 id 104 hint "Execute SQl query" name "CM_DOSQL" }
+
+// Сами бары
+
+
+// 2d - 20
+// 3d - 30
+// битовый 40
+// базы 50
+
+range "Standard" {id 1,dock 4, "CM_NEWsimplyPROJECT","CM_LOAD","CM_PRINT",
+separator,"CM_EDITDELETE","CM_EDITCUT","CM_EDITCOPY","CM_EDITPASTE",separator,"CM_SAVETODEF",
+"CM_LOADFROMDEF","CM_SAVEALL","CM_FILESAVE",separator,"CM_SYSINFO","CM_HIERARCHY","CM_LIBS","CM_MESSAGES"}
+
+range "Controls" {id 2,dock 1,"CM_PAUSE","CM_RUN","CM_STEP","CM_CLEARALL",separator,"CM_PREVPAGE","CM_NEXTPAGE"}
+
+range "Drawing" {id 20,dock 1,"CM_BASEMODE","CM_CREATENEWOBJECT","CM_LINK","CM_CALCORDER","CM_IMGNAMES",separator,"CM_LINE","CM_POLYLINE","CM_RECT",
+				   "CM_ROUNDRECT","CM_CIRCLE","CM_ARC","CM_TEXT","CM_GROUP",separator,"CM_FILE",separator,"CM_DRAG","CM_ZOOM",separator,"CM_SCALEDIALOG",separator,"CM_EDITPOINTS"}
+
+range "Bitmap editor" {id 40, "CM_bPIPE","CM_bPEN","CM_bLINE","CM_bRECT","CM_bFILLRECT",
+      "CM_bELLIPSE","CM_bFILLELLIPSE","CM_bFILL","CM_bSPRAY","CM_bCUTTER",separator,"CM_bCOLOR","CM_bGRID"}
+
+range "Video" {"CM_VSTART","CM_VPLAY","CM_VPAUSE","CM_VSTOP","CM_VEND",separator,"CM_AVIPREV","CM_AVINEXT",separator,"CM_VNOAUDIO","CM_VCYCLE",separator,"CM_GETTRANSPARENT"}
+
+range "3-dimensional graphics" {id 30,dock 3, "CM_MOVE3D","CM_SIZE3D","CM_ROTATE3D",separator,
+                     "CM_EDITCAMERA3D",separator,"CM_3Dsystem",separator,"CM_3Daxis",separator,"CM_LOCKaxis3D",separator,
+// примитивы
+"CM_PRIMITIVE3D",separator,"CM_EDITTEXTURES" }
+
+range "3d primitives" { id 4092, "CM_primBAR3D","CM_primTORE3D","CM_primCYLINDER3D","CM_primSPHERE3D","CM_primCONE3D","CM_primPYRAMID3D","CM_primSUBSPHERE3D" }
+
+range "Data bases" {id 50,"CM_APPEND","CM_REMOVERECORD",separator,"CM_SORTAZ","CM_SORTZA",separator,"CM_DOSQL" }
+
+range "text" {hidden,"CM_TEXTBOLD","CM_TEXTITALIC","CM_TEXTUNDERLINE","CM_TEXTSTRIKE", separator ,"CM_TEXTFGCOLOR","CM_TEXTBKCOLOR"}
+
