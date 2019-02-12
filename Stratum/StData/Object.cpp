@@ -230,14 +230,15 @@ QList<Object*> Object::getObjectsByPath(const QString& path)
 {
     QList<Object*> result;
 
+    Object* obj = this;
+
     if(path.isEmpty())
     {
-        result << this;
+        result << obj;
         return result;
     }
     else
     {
-        Object* obj = this;
         if(path[0] == '\\')
         {
             obj = rootObject();

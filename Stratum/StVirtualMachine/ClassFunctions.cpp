@@ -324,7 +324,7 @@ void getVarS()
     QString varName = valueStack->popString();
     QString objName = valueStack->popString();
 
-    QString value = 0;
+    QString value= "";
 
     QList<Object*> objects = executedObject->getObjectsByPath(objName);
     if(!objects.isEmpty())
