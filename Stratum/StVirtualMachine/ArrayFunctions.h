@@ -25,6 +25,8 @@ extern void dm_save();
 extern void dm_load();
 
 extern void dm_sort();
+extern void dm_sort_desc();
+extern void dm_sort_different();
 
 }
 

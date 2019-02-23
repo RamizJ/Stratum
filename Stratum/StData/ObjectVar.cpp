@@ -175,6 +175,21 @@ QString ObjectVar::toString()
     return m_varData->s;
 }
 
+bool ObjectVar::isNumeric() const
+{
+    return StandardTypes::isNumeric(m_varInfo->varType());
+}
+
+bool ObjectVar::isDouble() const
+{
+    return StandardTypes::isFloat(m_varInfo->varType());
+}
+
+bool ObjectVar::isString() const
+{
+    return StandardTypes::isString(m_varInfo->varType());
+}
+
 void ObjectVar::setData(VarData& varData, const QString& data)
 {
     Class* varType = m_varInfo->varType();

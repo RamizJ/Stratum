@@ -747,6 +747,8 @@ void vFunction()
         if(count <= functionsVarsCount)
         {
             Object* functionObject = Object::createByClass(executedProject, functionClass);
+            functionObject->setParentObject(executedObject->parentObject());
+
             int retIndex = -1;
             for(int i = 0; i < functionsVarsCount; i++)
             {
@@ -790,7 +792,6 @@ void vFunction()
             functionObject->saveState();
             Class* retVarType = getArgumentType();
 
-            VarData* retVarData = nullptr;
             if(pushContext(true))
             {
                 execute(functionObject, true);

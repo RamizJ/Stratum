@@ -73,6 +73,80 @@ void Array::load(St2000DataStream& stream)
     }
 }
 
+bool Array::sort(const QVector<QString>& fieldNames, bool desc)
+{
+    if(isEmpty() || fieldNames.isEmpty())
+        return true;
+
+    bool result = true;
+    for(QString fieldName : fieldNames)
+    {
+        std::sort(m_items.begin(), m_items.end(),
+                  [&fieldName, desc, &result](ArrayItem* x, ArrayItem* y) -> bool
+        {
+            if(result == false)
+                return false;
+
+            ObjectVar* xVar = x->varByName(fieldName);
+            ObjectVar* yVar = y->varByName(fieldName);
+
+            if(xVar == nullptr || yVar == nullptr)
+            {
+                result = false;
+                return false;
+            }
+
+            if(xVar->isDouble())
+                return desc ? xVar->doubleValue() > yVar->doubleValue() : xVar->doubleValue() < yVar->doubleValue();
+
+            if(xVar->isNumeric())
+                return desc ? xVar->intValue() > yVar->intValue() : xVar->intValue() < yVar->intValue();
+
+            return desc ? xVar->stringValue() > yVar->stringValue() : xVar->stringValue() < yVar->stringValue();
+        });
+    }
+
+    return result;
+}
+
+bool Array::sort(const QVector<std::tuple<QString, bool> >& fieldNames)
+{
+    if(isEmpty() || fieldNames.isEmpty())
+        return true;
+
+    bool result = true;
+    for(std::tuple<QString, bool> fieldName : fieldNames)
+    {
+        std::sort(m_items.begin(), m_items.end(),
+                  [&fieldName, &result](ArrayItem* x, ArrayItem* y) -> bool
+        {
+            if(result == false)
+                return false;
+
+            ObjectVar* xVar = x->varByName(std::get<0>(fieldName));
+            ObjectVar* yVar = y->varByName(std::get<0>(fieldName));
+
+            if(xVar == nullptr || yVar == nullptr)
+            {
+                result = false;
+                return false;
+            }
+
+            bool desc = std::get<1>(fieldName);
+
+            if(xVar->isDouble())
+                return desc ? xVar->doubleValue() > yVar->doubleValue() : xVar->doubleValue() < yVar->doubleValue();
+
+            if(xVar->isNumeric())
+                return desc ? xVar->intValue() > yVar->intValue() : xVar->intValue() < yVar->intValue();
+
+            return desc ? xVar->stringValue() > yVar->stringValue() : xVar->stringValue() < yVar->stringValue();
+        });
+    }
+
+    return result;
+}
+
 /*-----------------------------------------------------------------------------------------*/
 ArrayItem::ArrayItem(Class* cls) :
     m_type(cls),

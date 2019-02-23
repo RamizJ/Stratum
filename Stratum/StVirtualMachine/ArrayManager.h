@@ -58,6 +58,9 @@ public:
     bool save(int handle, StreamItem* streamItem);
     int load(StreamItem* streamItem);
 
+    bool sort(int handle, bool desc, const QVector<QString>& fieldNames);
+    bool sort(int handle, const QVector<std::tuple<QString, bool>>& fieldNames);
+
     void reset();
 
 private:
