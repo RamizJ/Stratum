@@ -94,19 +94,19 @@ bool Project::load()
 {
     bool result = false;
 
-    SystemLog::instance().info("Load project started");
-    SystemLog::instance().info(QString("Project file: %1").arg(m_fileInfo.absoluteFilePath()));
+//    SystemLog::instance().info("Load project started");
+//    SystemLog::instance().info(QString("Project file: %1").arg(m_fileInfo.absoluteFilePath()));
 
     QFile projectFile(m_fileInfo.absoluteFilePath());
     if(projectFile.open(QFile::ReadOnly))
     {
-        SystemLog::instance().info("Project file opened");
+//        SystemLog::instance().info("Project file opened");
 
         St2000DataStream stream(&projectFile);
         qint16 code = stream.readInt16();
         if(code == ProjectCode)
         {
-            SystemLog::instance().info("ProjectCode");
+//            SystemLog::instance().info("ProjectCode");
             m_projectLibrary->load();
             m_libraryCollection->addLibrary(m_projectLibrary);
 

@@ -192,10 +192,16 @@ void getObjectCount()
 
 void getHObject()
 {
+    int handle = 0;
     if(executedObject)
-        valueStack->pushInt32(executedObject->objectInfo()->handle());
-    else
-        valueStack->pushInt32(0);
+    {
+        if(executedObject->isProcedure())
+            handle = executedObject->parentObject() == nullptr ? 0 : executedObject->parentObject()->handle();
+        else
+            handle = executedObject->handle();
+    }
+
+    valueStack->pushInt32(handle);
 }
 
 void getHObjectByName()

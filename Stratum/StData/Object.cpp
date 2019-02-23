@@ -149,6 +149,11 @@ void Object::setFlags(const qint32& flags)
     m_visible = ((m_flags & 1) == 0);
 }
 
+bool Object::isProcedure() const
+{
+    return m_class->isProcedure();
+}
+
 void Object::saveState()
 {
     copyState(CopyState::Save);
@@ -373,6 +378,11 @@ bool Object::isExecutionEnabled() const
         return !(m_disableVar->doubleValue() > 0);
 
     return true;
+}
+
+qint32 Object::handle() const
+{
+    return m_objectInfo == nullptr ? 0 : m_objectInfo->handle();
 }
 
 }

@@ -100,8 +100,8 @@ bool MainWindow::eventFilter(QObject* watched, QEvent* event)
 void MainWindow::showEvent(QShowEvent* /*event*/)
 {
 
-    QString msg = QString("MainWnd size: %1x%2").arg(size().width()).arg(size().height());
-    SystemLog::instance().info(msg);
+//    QString msg = QString("MainWnd size: %1x%2").arg(size().width()).arg(size().height());
+//    SystemLog::instance().info(msg);
 
     Settings::instance().setMainWindowSize(size());
 }

@@ -48,6 +48,8 @@ public:
     qint32 flags() const { return m_flags; }
     void setFlags(const qint32& flags);
 
+    bool isProcedure() const;
+
     void saveState();
     void restoreState();
 
@@ -66,6 +68,8 @@ public:
     void load(Project* project);
 
     bool isExecutionEnabled() const;
+
+    qint32 handle() const;
 
 public:
     static Object* createByClass(Project* project, Class* cls, StData::ObjectInfo* objectInfo = nullptr);

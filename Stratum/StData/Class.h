@@ -121,8 +121,8 @@ public:
     void inline setModify() {m_flags |= (qint32)Flag::Modify;}
     bool isProtected();
 
-    bool isProcedure() {return (m_flags & (qint32)Flag::Procedure) == 1;}
-    bool isStructure() {return (m_flags & (qint32)Flag::Structure) == 1;}
+    bool isProcedure() {return (m_flags & (qint32)Flag::Procedure) > 0;}
+    bool isStructure() {return (m_flags & (qint32)Flag::Structure) > 0;}
 
     void addObject(Object* object);
     QList<Object*> objects() const {return m_objects;}

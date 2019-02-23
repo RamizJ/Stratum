@@ -747,7 +747,7 @@ void vFunction()
         if(count <= functionsVarsCount)
         {
             Object* functionObject = Object::createByClass(executedProject, functionClass);
-            functionObject->setParentObject(executedObject->parentObject());
+            functionObject->setParentObject(executedObject->isProcedure() ? executedObject->parentObject() : executedObject);
 
             int retIndex = -1;
             for(int i = 0; i < functionsVarsCount; i++)
