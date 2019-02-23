@@ -36,6 +36,6 @@ xcopy Resources\icons %depoy_dir%\icons /I /Y /E
 
 pause
 
-rar a -ep1 -r -m5 -ag_DD.MM.YYYY %depoy_dir% %depoy_dir%\*
+rar a -ep1 -r -m5 -ag_DD.MM.YYYY %depoy_dir% %depoy_dir%
 
 pause
