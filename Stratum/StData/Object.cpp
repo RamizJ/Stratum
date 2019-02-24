@@ -235,7 +235,7 @@ QList<Object*> Object::getObjectsByPath(const QString& path)
 {
     QList<Object*> result;
 
-    Object* obj = this;
+    Object* obj = isProcedure() && m_parentObject != nullptr ? m_parentObject : this;
 
     if(path.isEmpty())
     {
