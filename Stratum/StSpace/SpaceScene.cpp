@@ -310,7 +310,7 @@ bool SpaceScene::setZOrder(int objectHandle, int zOrder)
     {
         if(m_space->setObjectZOrder(objectHandle, zOrder))
         {
-            spaceGraphicsItem->updateZOrder();
+            updateItemsZOrder();
             return true;
         }
     }
@@ -1179,13 +1179,6 @@ void SpaceScene::updateItemsHandle(SpaceGraphicsItem* item)
 //TODO обновлять z-порядок начиная с позиции
 void SpaceScene::updateItemsZOrder(int /*fromZOrder*/)
 {
-//    for(int i = fromZOrder; i < m_space->zOrderList().count(); i++)
-//    {
-//        int handle = m_space->getHandleByZOrder(i);
-//        QGraphicsItem* item = m_graphicsItemForHandle.value(handle);
-//        if(SpaceGraphicsItem* spaceItem = dynamic_cast<SpaceGraphicsItem*>(item))
-//            spaceItem->updateZOrder();
-//    }
     for(QGraphicsItem* item : items())
         if(SpaceGraphicsItem* spaceItem = dynamic_cast<SpaceGraphicsItem*>(item))
             spaceItem->updateZOrder();

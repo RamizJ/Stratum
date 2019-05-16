@@ -238,7 +238,7 @@ bool Space::setObjectZOrder(int objectHandle, int zOrder)
     SpaceItem* item = m_items.getItem(objectHandle);
     int index = m_zOrderList.indexOf(item);
 
-    if(index != -1 && (zOrder > 0 && zOrder <= m_zOrderList.count()))
+    if(index > -1 && (zOrder > 0 && zOrder <= m_zOrderList.count()))
     {
         m_zOrderList.move(index, zOrder - 1);
         controlsToTop();

@@ -12,6 +12,7 @@
 #include <FontHelper.h>
 
 #include <QtMath>
+#include <QString>
 
 #ifdef Q_OS_WIN
 #include <FontHelper.h>
@@ -410,7 +411,7 @@ void createText2d()
 
     if(SpaceWidget* widget = windowManager->getWidget(spaceHandle))
     {
-        QColor bgColor = intToColor(bgRgba);
+        QColor bgColor = intToTextColor(bgRgba);
         QColor fgColor = intToColor(fgRgba);
         valueStack->pushInt32(widget->space()->createText(fontHandle, stringHandle, bgColor, fgColor));
     }

@@ -15,6 +15,9 @@ QColor intToColor(int agbr)
     int b = (agbr >> 16) & 255;
     int a = (agbr >> 24) & 255;
 
+    if(a == 0)
+        a = 255;
+
     return QColor(r, g, b, a);
 }
 
@@ -23,7 +26,6 @@ QColor intToTextColor(int agbr)
     int r = agbr & 255;
     int g = (agbr >> 8) & 255;
     int b = (agbr >> 16) & 255;
-//    int a = (agbr >> 24) & 255;
     int a = ((agbr & 0x01000000l) != 0) ? 0 : 255;
 
     return QColor(r, g, b, a);
