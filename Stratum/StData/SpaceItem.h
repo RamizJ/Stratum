@@ -22,6 +22,9 @@ public:
     enum Options {HardDontSelect = 4, DontSelect = 8};
     enum OptionsMode {Set = 1, Reset, Put};
     enum Type {Type_Graphics, Type_Object, Type_Link, Type_Udefined};
+    enum ItemType {Group2d = 3, RegionGroupd2d = 4, Group3d = 5, Object3d = 10, Line2d = 20,
+                   Bitmap2d = 21, DoubleBitmap2d = 22, Text2d = 23, View3d_2d = 24,
+                   EditFrame2d = 50, RotateCenter2d = 51, Frame3d = 52, Axis3d = 53};
 
 public:
     SpaceItem(Space* space);
@@ -74,6 +77,8 @@ public:
 
     void invokeHyperJump();
 
+    virtual int itemType() = 0;
+
 signals:
     void hyperJumpInvoked();
 
@@ -111,6 +116,8 @@ public:
     void setAngle(const double& angle) {m_angle = angle;}
 
     virtual bool containsPoint(double x, double y) const;
+
+    virtual int itemType() { return ItemType::Line2d; }
 //    virtual bool getDistanceToPoint(const QPointF& point);
 
 public:
@@ -256,6 +263,8 @@ public:
     SpaceItem* deepCopy();
     void accept(SpaceItemVisitorBase* visitor);
 
+    virtual int itemType() { return 0; }
+
 private:
     QString m_typeName;
     qint32 m_flags;
@@ -302,6 +311,8 @@ public:
     void accept(SpaceItemVisitorBase* visitor);
     virtual void setSpace(Space* space);
 
+    virtual int itemType() { return ItemType::Group2d; }
+
     // ISpaceItem2d interface
 public:
     QPointF origin() const;
@@ -333,6 +344,8 @@ public:
     SpaceItem* deepCopy();
     void accept(SpaceItemVisitorBase* visitor);
 
+    virtual int itemType() { return ItemType::Text2d; }
+
 private:
     RasterTextTool* m_rasterText;
     double m_textAngle;
@@ -363,6 +376,10 @@ public:
     virtual SpaceItem* deepCopy();
     void accept(SpaceItemVisitorBase* visitor);
 
+    virtual int itemType() { return ItemType::Bitmap2d; }
+
+
+
 private:
     TextureTool* m_textureTool;
     int m_textureHandle;
@@ -377,6 +394,8 @@ public:
     explicit MaskedTextureItem2d(Space* space2d) : TextureItem2d(space2d)
     {}
     MaskedTextureItem2d(const MaskedTextureItem2d& other);
+
+    virtual int itemType() { return ItemType::DoubleBitmap2d; }
 
     SpaceItem* deepCopy();
 };
@@ -456,6 +475,8 @@ public:
 
     void accept(SpaceItemVisitorBase* visitor);
 
+    int itemType() { return 0; }
+
 private:
     ControlItem2d(Space* space, ClassType classType,
                   int style, const QString& text, const QSizeF& size, int id);
@@ -465,7 +486,7 @@ private:
     int m_style;
     QString m_text;
     bool m_enabled;
-    int m_id;
+    int m_id;  
 };
 
 }

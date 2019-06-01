@@ -155,7 +155,8 @@ void Space::deleteObject(int handle)
 int Space::getObjectType(int handle)
 {
     if(SpaceItem* item = m_items.getItem(handle))
-        return item->loadingType();
+        return item->itemType();
+        //return item->loadingType();
 
     return 0;
 }
