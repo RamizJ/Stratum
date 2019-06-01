@@ -56,7 +56,7 @@ SpaceWidget::SpaceWidget(const QString winName, Space* space, const QString& sty
         m_spaceView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         m_spaceView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         m_spaceView->setScrollingEnabled(false);
-        //        m_spaceView->setRenderHints(QPainter::SmoothPixmapTransform | QPainter::TextAntialiasing | QPainter::Antialiasing);
+        //m_spaceView->setRenderHints(QPainter::SmoothPixmapTransform | QPainter::TextAntialiasing | QPainter::Antialiasing);
         m_spaceView->setViewportUpdateMode(QGraphicsView::NoViewportUpdate);
         m_spaceView->setTransformationAnchor(QGraphicsView::NoAnchor);
         m_spaceView->setResizeAnchor(QGraphicsView::NoAnchor);
@@ -197,8 +197,6 @@ void SpaceWidget::setupWindowParams(const QString& style)
 void SpaceWidget::updateTransform()
 {
     double scale = m_space->scale() * m_autoScale;
-
-    SystemLog::instance().info(QString("autoScale: %1").arg(scale));
 
     QTransform t;
     t.translate(-m_space->org().x()* scale, -m_space->org().y() * scale);

@@ -279,7 +279,7 @@ int Space::createPen(qint16 rop, int rgba, int width, int style)
     PenTool* newPenTool = m_pens.createItem();
     newPenTool->setRgba(rgba);
     newPenTool->setWidth(width);
-    newPenTool->setStyle(style);
+    newPenTool->setStyle(static_cast<qint16>(style));
     newPenTool->setRop(rop);
     return newPenTool->handle();
 }
@@ -309,6 +309,7 @@ int Space::createBrush(int style, int hatch, int rgba, int dibHandle, qint16 rop
     newBrushTool->setRgba(rgba);
     newBrushTool->setTexture(m_textures.getItem(dibHandle));
     newBrushTool->setRop(rop);
+
     return newBrushTool->handle();
 }
 

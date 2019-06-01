@@ -7,6 +7,7 @@
 #include <SpaceWidget.h>
 #include <SpaceItem.h>
 #include <SpaceScene.h>
+#include <Log.h>
 
 using namespace StData;
 using namespace StSpace;
@@ -73,6 +74,8 @@ void createPolyLine2d()
     int brushHandle = valueStack->popInt32();
     int penHandle = valueStack->popInt32();
     int spaceHandle = valueStack->popInt32();
+
+    //SystemLog::instance().info(QString("Polyline brush: %1. Pen: %2").arg(brushHandle).arg(penHandle));
 
     if(SpaceWidget* widget = windowManager->getWidget(spaceHandle))
         valueStack->pushInt32(widget->createPolyline(penHandle, brushHandle, polyline));

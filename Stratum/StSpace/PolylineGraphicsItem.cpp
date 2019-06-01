@@ -11,6 +11,7 @@
 #include "GraphicsItemType.h"
 
 #include <HyperBase.h>
+#include <Log.h>
 #include <PolylineArrow.h>
 #include <QDebug>
 #include <QPainter>
@@ -292,8 +293,8 @@ void PolylineGraphicsItem::paint(QPainter* painter, const QStyleOptionGraphicsIt
             }
             else
             {
-                painter->setPen(pen());
                 painter->setBrush(brush());
+                painter->setPen(pen());
                 painter->drawPath(path());
             }
 

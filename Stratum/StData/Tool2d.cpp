@@ -31,7 +31,10 @@ void Tool::decRef()
 
 /*---------------------------------------------------------------------------------------------------*/
 PenTool::PenTool(int handle) :
-    Tool(handle)
+    Tool(handle),
+    m_style(0),
+    m_rop(0),
+    m_width(0)
 {
     m_pen.setJoinStyle(Qt::RoundJoin);
     m_pen.setCapStyle(Qt::RoundCap);
@@ -49,31 +52,24 @@ PenTool::PenTool(const PenTool& other) :
 
 void PenTool::setRop(const qint16& rop)
 {
-    if(m_rop != rop)
-    {
-        m_rop = rop;
-        emit changed();
-    }
+    m_rop = rop;
+    emit changed();
 }
 
 void PenTool::setRgba(int rgba)
 {
-    if(m_rgba != rgba)
-    {
-        m_rgba = rgba;
-        m_pen.setColor(intToColor(m_rgba));
-        emit changed();
-    }
+    m_rgba = rgba;
+    m_pen.setColor(intToColor(m_rgba));
+    emit changed();
+
 }
 
 void PenTool::setWidth(double width)
 {
-    if(m_width != width)
-    {
-        m_width = width;
-        m_pen.setWidthF(fabs(m_width));
-        emit changed();
-    }
+    m_width = width;
+    m_pen.setWidthF(fabs(m_width));
+    emit changed();
+
 }
 
 Qt::PenStyle PenTool::toQPenStyle(qint16 penStyle)
@@ -104,30 +100,24 @@ PenTool::PenStyle PenTool::toStPenStyle(Qt::PenStyle penStyle)
 
 void PenTool::setStyle(const qint16& style)
 {
-    if(m_style != style)
-    {
-        m_style = style;
-        Qt::PenStyle penStyle = toQPenStyle(m_style);
-        m_pen.setStyle(penStyle);
-        emit changed();
-    }
+    m_style = style;
+    Qt::PenStyle penStyle = toQPenStyle(m_style);
+    m_pen.setStyle(penStyle);
+    emit changed();
 }
 
 void PenTool::setData(int rgba, double width, qint16 style, qint16 rop)
 {
-    if(rgba != m_rgba || width != m_width || style != m_style || rop != m_rop)
-    {
-        m_rgba = rgba;
-        m_width = width;
-        m_style = style;
-        m_rop = rop;
+    m_rgba = rgba;
+    m_width = width;
+    m_style = style;
+    m_rop = rop;
 
-        m_pen.setWidthF(fabs(m_width));
-        m_pen.setColor(intToColor(m_rgba));
-        m_pen.setStyle(toQPenStyle(m_style));
+    m_pen.setWidthF(fabs(m_width));
+    m_pen.setColor(intToColor(m_rgba));
+    m_pen.setStyle(toQPenStyle(m_style));
 
-        emit changed();
-    }
+    emit changed();
 }
 
 void PenTool::accept(ToolVisitorBase* visitor)
@@ -152,7 +142,11 @@ bool PenTool::operator !=(const PenTool& other) const
 BrushTool::BrushTool(int handle) :
     Tool(handle),
     m_texture(nullptr),
-    m_textureHandle(0)
+    m_textureHandle(0),
+    m_rop(0),
+    m_style(0),
+    m_hatch(0),
+    m_rgba(0)
 {}
 
 BrushTool::BrushTool(const BrushTool& other) :
@@ -194,22 +188,16 @@ void BrushTool::setRop(const qint16& rop)
 
 void BrushTool::setStyle(qint16 style)
 {
-    if(m_style != style)
-    {
-        m_style = style;
-        m_brush.setStyle(toQBrushStyle(m_style, m_hatch));
-        emit changed();
-    }
+    m_style = style;
+    m_brush.setStyle(toQBrushStyle(m_style, m_hatch));
+    emit changed();
 }
 
 void BrushTool::setHatch(qint16 hatch)
 {
-    if(m_hatch != hatch)
-    {
-        m_hatch = hatch;
-        m_brush.setStyle(toQBrushStyle(m_style, m_hatch));
-        emit changed();
-    }
+    m_hatch = hatch;
+    m_brush.setStyle(toQBrushStyle(m_style, m_hatch));
+    emit changed();
 }
 
 void BrushTool::setRgba(int rgba)

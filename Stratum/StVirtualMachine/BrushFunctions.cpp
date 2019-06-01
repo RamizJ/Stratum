@@ -30,11 +30,11 @@ void setupBrushFunctions()
 
 void createBrush2d()
 {
-    int rop = valueStack->popDouble();
+    int rop = static_cast<int>(valueStack->popDouble());
     int dibHandle = valueStack->popInt32();
     int rgba = valueStack->popInt32();
-    int hatch = valueStack->popDouble();
-    int style = valueStack->popDouble();
+    int hatch = static_cast<int>(valueStack->popDouble());
+    int style = static_cast<int>(valueStack->popDouble());
     int spaceHandle = valueStack->popInt32();
 
     if(SpaceWidget* spaceWidget = windowManager->getWidget(spaceHandle))
