@@ -95,10 +95,9 @@ void SpaceWindowItem::addChildWindow(SpaceWindowItem* childItem)
     }
 }
 
-//TODO перенести из одной сцены в другую
 void SpaceWindowItem::setParentItem(SpaceWindowItem* parentItem)
 {
-    VmLog::instance().error("SetParentWindow - function incomplete");
+//    VmLog::instance().error("SetParentWindow - function incomplete");
     m_parentItem = parentItem;
 }
 
