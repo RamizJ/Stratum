@@ -895,6 +895,87 @@ bool Space::deleteTool(int toolHandle, int toolType)
     return false;
 }
 
+int Space::getToolRef2d(int toolHandle, int toolType)
+{
+    Tool* tool;
+    switch(toolType)
+    {
+        case Tool::Pen:
+            tool = m_pens.getItem(toolHandle);
+            break;
+
+        case Tool::Brush:
+            tool = m_brushes.getItem(toolHandle);
+            break;
+
+        case Tool::Texture:
+            tool = m_textures.getItem(toolHandle);
+            break;
+
+        case Tool::MaskedTexture:
+            tool = m_maskedTextures.getItem(toolHandle);
+            break;
+
+        case Tool::Font:
+            tool = m_fonts.getItem(toolHandle);
+            break;
+
+        case Tool::String:
+            tool = m_strings.getItem(toolHandle);
+            break;
+
+        case Tool::Text:
+            tool = m_rasterTexts.getItem(toolHandle);
+            break;
+
+        default:
+            tool = nullptr;
+            break;
+    }
+
+    return tool != nullptr ? tool->refCount() : 0;
+}
+
+int Space::getNextTool(int toolHandle, int toolType)
+{
+    int nextToolHandle;
+    switch(toolType)
+    {
+        case Tool::Pen:
+            nextToolHandle = m_pens.getNextHandle(toolHandle);
+            break;
+
+        case Tool::Brush:
+            nextToolHandle = m_brushes.getNextHandle(toolHandle);
+            break;
+
+        case Tool::Texture:
+            nextToolHandle = m_textures.getNextHandle(toolHandle);
+            break;
+
+        case Tool::MaskedTexture:
+            nextToolHandle = m_maskedTextures.getNextHandle(toolHandle);
+            break;
+
+        case Tool::Font:
+            nextToolHandle = m_fonts.getNextHandle(toolHandle);
+            break;
+
+        case Tool::String:
+            nextToolHandle = m_strings.getNextHandle(toolHandle);
+            break;
+
+        case Tool::Text:
+            nextToolHandle = m_rasterTexts.getNextHandle(toolHandle);
+            break;
+
+        default:
+            nextToolHandle = 0;
+            break;
+    }
+    return nextToolHandle;
+}
+
 ControlItem2d* Space::createControl(const QString& className, const QString& text,
                                     int style, int x, int y, int width, int height, int id)
 {

@@ -47,24 +47,32 @@ void deleteTool2d()
 
 void getNextTool2d()
 {
-    valueStack->popInt32();
-    valueStack->popDouble();
-    valueStack->popInt32();
+    int toolHandle = valueStack->popInt32();
+    int toolType = valueStack->popDouble();
+    int spaceHandle = valueStack->popInt32();
 
-    VmLog::instance().error("'getNextTool2d' - function not implemented");
-
-    valueStack->pushInt32(0.0);
+    if(SpaceWidget* w = windowManager->getWidget(spaceHandle))
+    {
+        int nextToolHandle = w->space()->getNextTool(toolHandle, toolType);
+        valueStack->pushInt32(nextToolHandle);
+    }
+    else
+        valueStack->pushInt32(0);
 }
 
 void getToolRef2d()
 {
-    valueStack->popInt32();
-    valueStack->popDouble();
-    valueStack->popInt32();
+    int toolHandle = valueStack->popInt32();
+    int toolType = static_cast<int>(valueStack->popDouble());
+    int spaceHandle = valueStack->popInt32();
 
-    VmLog::instance().error("'getToolRef2d' - function not implemented");
-
-    valueStack->pushDouble(0.0);
+    if(SpaceWidget* w = windowManager->getWidget(spaceHandle))
+    {
+        int refsCount = w->space()->getToolRef2d(toolHandle, toolType);
+        valueStack->pushDouble(refsCount);
+    }
+    else
+        valueStack->pushDouble(0.0);
 }
 
 //Colors

@@ -145,8 +145,9 @@ public:
     void pasteItem(SpaceItem* spaceItem);
     void addItemTools(SpaceItem* spaceItem);
 
-
     bool deleteTool(int toolHandle, int toolType);
+    int getToolRef2d(int toolHandle, int toolType);
+    int getNextTool(int toolHandle, int toolType);
 
 public:
     static Space* createFromScheme(Scheme* scheme);
@@ -184,6 +185,7 @@ private:
     QBitArray m_layerBits;
     qint16 m_defaultFlags;
 
+    //TODO: Extract tool collections and functions to ToolManager class
     HandleCollection<PenTool> m_pens;
     HandleCollection<BrushTool> m_brushes;
     HandleCollection<TextureTool> m_textures;
