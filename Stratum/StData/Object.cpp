@@ -7,6 +7,7 @@
 #include "VarManager.h"
 #include "ObjectVar.h"
 #include "LinkInfo.h"
+#include "Log.h"
 
 #include <QDebug>
 #include <QRegularExpression>
@@ -376,6 +377,25 @@ bool Object::isExecutionEnabled() const
 
     else if(m_disableVar)
         return !(m_disableVar->doubleValue() > 0);
+
+    return true;
+}
+
+bool Object::isHierarchyExecutionEnabled()
+{
+    return isHierarchyExecutionEnabled(this);
+}
+
+bool Object::isHierarchyExecutionEnabled(Object* object)
+{
+    if(object == nullptr)
+        return false;
+
+    if(!object->isExecutionEnabled())
+        return false;
+
+    if(object->parentObject() != nullptr)
+        return isHierarchyExecutionEnabled(object->parentObject());
 
     return true;
 }

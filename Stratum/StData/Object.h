@@ -68,6 +68,9 @@ public:
     void load(Project* project);
 
     bool isExecutionEnabled() const;
+    bool isHierarchyExecutionEnabled();
+
+    static bool isHierarchyExecutionEnabled(Object* object);
 
     qint32 handle() const;
 

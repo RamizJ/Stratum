@@ -63,10 +63,8 @@ void execute(StData::Object* object, bool executeDisabledObject)
                                      .arg(childObject->cls()->originalName()).toStdString() + e.what());
         }
     }
-    if(executeDisabledObject)
-        executeObjectCode(object);
 
-    else if(object->isExecutionEnabled())
+    if(executeDisabledObject || object->isHierarchyExecutionEnabled())
         executeObjectCode(object);
 }
 
