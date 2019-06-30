@@ -82,7 +82,7 @@ void rgb()
     quint8 g = valueStack->popDouble();
     quint8 r = valueStack->popDouble();
 
-    valueStack->pushInt32(getRGBA(r,g,b));
+    valueStack->pushInt32(getRGBA(r,g,b,0));
 }
 
 void rgbEx()

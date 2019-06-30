@@ -2,6 +2,7 @@
 #include "VmCodes.h"
 #include "VmGlobal.h"
 
+#include <Log.h>
 #include <ObjectVar.h>
 
 using namespace StData;
@@ -171,7 +172,7 @@ void _popStringOld()
 
 void floatToLong()
 {
-    qint32 value = (qint32)valueStack->popDouble();
+    qint32 value = static_cast<qint32>(valueStack->popDouble());
     valueStack->pushInt32(value);
 }
 

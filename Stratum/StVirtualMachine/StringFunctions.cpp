@@ -2,6 +2,7 @@
 #include "VmCodes.h"
 #include "VmGlobal.h"
 
+#include <Log.h>
 #include <StDataGlobal.h>
 #include <StringHelper.h>
 

@@ -306,7 +306,6 @@ bool MessageHandler::eventFilter(QObject* sender, QEvent* event)
 
                 if(mouseEvent->button() == Qt::LeftButton && (m_code == WM_LBUTTONUP || m_code == WM_ALLMOUSEMESSAGE))
                 {
-                    VmLog::instance().warning("Qt::LeftButton");
                     //                    setVarF(VI_XPOS, scenePos.x());
                     //                    setVarF(VI_YPOS, scenePos.y());
                     //                    send(WM_LBUTTONUP);
