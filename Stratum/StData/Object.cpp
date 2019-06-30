@@ -304,7 +304,10 @@ QList<Object*> Object::getObjectsByPath(const QString& path)
                     return obj->childObjects();
 
                 else if(objectName == "..")
-                    result << obj->parentObject();
+                {
+                    if(obj->parentObject())
+                        result << obj->parentObject();
+                }
 
                 else if(objectName[0] == '#')
                 {

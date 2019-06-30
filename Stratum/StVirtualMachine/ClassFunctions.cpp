@@ -210,8 +210,12 @@ void getHObjectByName()
 
     int handle = 0;
     QList<Object*> objectsByPath = executedObject->getObjectsByPath(objectName);
+
     if(!objectsByPath.isEmpty())
-        handle = objectsByPath.first()->objectInfo()->handle();
+    {
+        if(objectsByPath.first() && objectsByPath.first()->objectInfo())
+            handle = objectsByPath.first()->objectInfo()->handle();
+    }
 
     valueStack->pushInt32(handle);
 }
