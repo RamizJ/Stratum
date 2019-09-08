@@ -4,6 +4,7 @@
 #include <IVirtualMachine.h>
 
 #include <HyperBase.h>
+#include <Log.h>
 #include <QDebug>
 
 using namespace StData;
@@ -110,7 +111,14 @@ void Run::timerEvent(QTimerEvent*)
         }
     }
 
-    doOneIteration();
+    try {
+        doOneIteration();
+    }
+    catch(std::runtime_error e) {
+        SystemLog::instance().error(e.what());
+        stop();
+    }
+
 
     if(m_jumpingProject)
     {

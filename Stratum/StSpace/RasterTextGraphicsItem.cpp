@@ -296,7 +296,7 @@ void RasterTextGraphicsItem::setupTextFragmentParams(TextFragment* textFragment,
     format.setForeground(QBrush(textFragment->fgColor()));
     format.setBackground(QBrush(textFragment->bgColor()));
 
-    str = textFragment->stringTool()->string();
+    str = textFragment->stringTool() ? textFragment->stringTool()->string() : "";
     if(FontTool* fontTool = textFragment->fontTool())
     {
         QFont font = fontTool->font();

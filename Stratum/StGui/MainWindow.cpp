@@ -184,7 +184,13 @@ void MainWindow::pause()
 
 void MainWindow::oneStep()
 {
-    Core::instance().run()->oneStep();
+    try {
+        Core::instance().run()->oneStep();
+    }
+    catch(std::runtime_error& e)
+    {
+        QMessageBox::critical(this, tr("Ошибка"), e.what());
+    }
     updateActionsState();
 }
 
